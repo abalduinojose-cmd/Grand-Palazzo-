@@ -1,0 +1,353 @@
+@import "tailwindcss";
+
+/*
+  Grand Palazzo — bangalô privativo na represa de Areal (RJ).
+
+  Paleta oficial do cliente (6 tokens) e as regras de contraste que
+  saíram do cálculo WCAG sobre ela:
+
+  - marrom #50452F sobre creme = 8,2:1 (AAA) -> texto corrido, botões
+  - café   #614D32 sobre creme = 7,0:1 (AAA) -> acento de texto, links
+  - dourado #8A744D sobre creme = 3,9:1      -> REPROVA em texto pequeno.
+    Só em título grande (>=24px) ou como grafismo: fio, borda, ícone.
+  - bege   #B5A47E sobre creme = 2,1:1       -> nunca texto. Só grafismo.
+  - creme sobre marrom = 8,2:1 (AAA)         -> texto sobre fundo escuro
+  - bege sobre marrom  = 3,8:1               -> só título grande
+
+  Botão primário: fundo marrom + texto creme (8,2:1). Dourado de fundo
+  com texto creme daria 3,9:1 e reprovaria, então dourado fica na borda.
+*/
+@theme {
+  /* neutraliza a roda padrão do Tailwind: só os tokens da marca existem */
+  --color-*: initial;
+  --color-marrom: #50452f; /* principal: texto, botões, fundo escuro */
+  --color-cafe: #614d32; /* secundário: acento de texto, links */
+  --color-dourado: #8a744d; /* acento — título grande ou grafismo */
+  --color-bege: #b5a47e; /* grafismo puro — nunca texto pequeno */
+  --color-creme: #f6efe3; /* fundo claro principal */
+  --color-offwhite: #f4f0e3; /* fundo claro alternativo */
+  --color-branco: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  /* noite: o marrom da casa levado ao breu, para o fim do scroll */
+  --color-noite: color-mix(in oklab, #50452f 62%, #17120b);
+
+  /* tipografia — Prata (display romana, conversa com o logo) +
+     Manrope (corpo, humanista geométrica com latin-ext) */
+  --font-display: var(--font-prata), "Prata", ui-serif, Georgia, serif;
+  --font-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui,
+    sans-serif;
+
+  /* escala tipográfica fluida */
+  --text-display: clamp(2.5rem, 7.5vw, 6rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.015em;
+  --text-titulo: clamp(1.75rem, 4vw, 3rem);
+  --text-titulo--line-height: 1.1;
+  --text-titulo--letter-spacing: -0.01em;
+  --text-entre: clamp(1.25rem, 2vw, 1.5rem);
+  --text-entre--line-height: 1.35;
+  --text-corpo: 1.0625rem;
+  --text-corpo--line-height: 1.7;
+  --text-legenda: 0.8125rem;
+  --text-legenda--line-height: 1.5;
+
+  --tracking-eyebrow: 0.18em;
+  --ease-suave: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tema por seção: cada <Section> declara data-theme e os filhos leem as
+   vars. O acento de TEXTO é o café (AAA); o dourado entra como fio. */
+[data-theme="claro"] {
+  --bg: var(--color-creme);
+  --fg: var(--color-marrom);
+  --fg-suave: rgb(80 69 47 / 0.72);
+  --acento: var(--color-cafe);
+  --fio: rgb(138 116 77 / 0.28);
+}
+[data-theme="offwhite"] {
+  --bg: var(--color-offwhite);
+  --fg: var(--color-marrom);
+  --fg-suave: rgb(80 69 47 / 0.72);
+  --acento: var(--color-cafe);
+  --fio: rgb(138 116 77 / 0.32);
+}
+[data-theme="marrom"] {
+  --bg: var(--color-marrom);
+  --fg: var(--color-creme);
+  --fg-suave: rgb(246 239 227 / 0.76);
+  --acento: var(--color-bege);
+  --fio: rgb(246 239 227 / 0.2);
+}
+[data-theme="noite"] {
+  --bg: var(--color-noite);
+  --fg: var(--color-creme);
+  --fg-suave: rgb(246 239 227 / 0.74);
+  --acento: var(--color-bege);
+  --fio: rgb(246 239 227 / 0.18);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-creme);
+  color: var(--color-marrom);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-marrom);
+  color: var(--color-creme);
+}
+
+/* Foco de teclado sempre visível, na cor de acento do tema local */
+:focus-visible {
+  outline: 2px solid var(--acento, var(--color-cafe));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Textura, véus e transições de seção                               */
+/* ---------------------------------------------------------------- */
+
+/* Grão nas seções claras: tile feTurbulence embutida (zero rede), com a
+   opacidade dentro do próprio SVG. Sem blend e sem camada fixa, porque
+   overlay full-screen com multiply custa caro no raster do LCP. */
+[data-theme="claro"]::after,
+[data-theme="offwhite"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.045'/%3E%3C/svg%3E");
+}
+@media (prefers-contrast: more) {
+  [data-theme="claro"]::after,
+  [data-theme="offwhite"]::after {
+    display: none;
+  }
+}
+
+/* Véus de legibilidade sobre foto: sombra do marrom da casa, nunca
+   cinza puro. Mobile vertical (texto na base), desktop diagonal a
+   100deg (texto à esquerda, a foto respira à direita). */
+.veu-hero-mobile {
+  background: linear-gradient(
+    180deg,
+    rgb(23 18 11 / 0.44) 0%,
+    rgb(23 18 11 / 0.14) 40%,
+    rgb(23 18 11 / 0.84) 100%
+  );
+}
+.veu-hero-desktop {
+  background:
+    linear-gradient(
+      100deg,
+      rgb(23 18 11 / 0.8) 0%,
+      rgb(23 18 11 / 0.46) 38%,
+      rgb(23 18 11 / 0.12) 68%,
+      rgb(23 18 11 / 0.02) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(23 18 11 / 0.44) 0%,
+      rgb(23 18 11 / 0.05) 30%,
+      rgb(23 18 11 / 0.52) 100%
+    );
+}
+.veu-foto {
+  background: linear-gradient(
+    180deg,
+    rgb(23 18 11 / 0.2) 0%,
+    rgb(23 18 11 / 0.02) 32%,
+    rgb(23 18 11 / 0.58) 68%,
+    rgb(23 18 11 / 0.9) 100%
+  );
+}
+.veu-cartao {
+  background: linear-gradient(
+    180deg,
+    rgb(23 18 11 / 0) 34%,
+    rgb(23 18 11 / 0.66) 100%
+  );
+}
+
+/* Anoitecer entre a última seção clara e a noite: só os tokens e as
+   misturas entre eles, adensadas onde o creme vira marrom. */
+.grad-anoitecer {
+  background: linear-gradient(
+    180deg,
+    var(--color-creme) 0%,
+    var(--color-offwhite) 12%,
+    color-mix(in oklab, var(--color-offwhite) 55%, var(--color-bege)) 30%,
+    color-mix(in oklab, var(--color-bege) 50%, var(--color-dourado)) 46%,
+    color-mix(in oklab, var(--color-dourado) 42%, var(--color-marrom)) 62%,
+    var(--color-marrom) 80%,
+    var(--color-noite) 100%
+  );
+}
+
+/* Ruído anti-banding por cima de gradiente longo: overlay preserva a
+   luminosidade média; isolation segura o blend dentro da faixa. */
+.textura-ruido {
+  position: relative;
+  isolation: isolate;
+}
+.textura-ruido::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+/* Marca-texto do manifesto: bege como grafismo (nunca como tinta de
+   texto), sublinhando por trás da linha. Só sobre fundo escuro. */
+.marca-texto {
+  background-image: linear-gradient(
+    transparent 66%,
+    color-mix(in srgb, var(--color-bege) 32%, transparent) 66%,
+    color-mix(in srgb, var(--color-bege) 32%, transparent) 94%,
+    transparent 94%
+  );
+}
+
+/* Trilho de fotos: fade na borda direita avisa que há mais. */
+.trilho-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(100% - 3rem),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(100% - 3rem),
+    transparent
+  );
+}
+
+/* Luzes da noite (as lâmpadas penduradas do deck) e balanço das copas.
+   Sob prefers-reduced-motion nada disso roda. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cintila {
+    0%,
+    100% {
+      opacity: var(--brilho, 0.6);
+    }
+    50% {
+      opacity: 0.14;
+    }
+  }
+  .luz-a {
+    animation: cintila 4.2s ease-in-out infinite;
+  }
+  .luz-b {
+    animation: cintila 5.6s ease-in-out 1.3s infinite;
+  }
+  .luz-c {
+    animation: cintila 7s ease-in-out 2.6s infinite;
+  }
+
+  @keyframes balanca {
+    from {
+      transform: rotate(-1.4deg);
+    }
+    to {
+      transform: rotate(1.8deg);
+    }
+  }
+  .copa-balanco {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: balanca 7s ease-in-out infinite alternate;
+  }
+
+  @keyframes nevoa-deriva {
+    from {
+      transform: translateX(-1.2%);
+    }
+    to {
+      transform: translateX(1.4%);
+    }
+  }
+  .nevoa-deriva {
+    animation: nevoa-deriva 26s ease-in-out infinite alternate;
+  }
+  .nevoa-deriva-b {
+    animation: nevoa-deriva 34s ease-in-out 4s infinite alternate-reverse;
+  }
+}
+
+/* Reveal de entrada: scroll-driven onde há suporte. Sem suporte (ou com
+   reduced-motion) o conteúdo fica estático e sempre visível. */
+@keyframes reveal-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes traco-desenha {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* --reveal-atraso escalona fileiras: em timeline de scroll o atraso
+       se mede em porcentagem do trajeto, não em milissegundos. */
+    .reveal {
+      animation: reveal-entrada 1ms var(--ease-suave) both;
+      animation-timeline: view();
+      animation-range: entry calc(0% + var(--reveal-atraso, 0%)) entry
+        calc(40% + var(--reveal-atraso, 0%));
+    }
+
+    /* Pictogramas de traço: a linha se desenha quando o bloco entra em
+       cena (pathLength=1 normaliza o dash em qualquer desenho). */
+    .traco-anima path {
+      stroke-dasharray: 1;
+      animation: traco-desenha 1ms linear both;
+      animation-timeline: view();
+      animation-range: entry calc(8% + var(--reveal-atraso, 0%)) entry
+        calc(56% + var(--reveal-atraso, 0%));
+    }
+    .traco-anima circle {
+      animation: reveal-entrada 1ms linear both;
+      animation-timeline: view();
+      animation-range: entry calc(38% + var(--reveal-atraso, 0%)) entry
+        calc(60% + var(--reveal-atraso, 0%));
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
