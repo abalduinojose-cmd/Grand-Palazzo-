@@ -12,8 +12,8 @@ escondido, genérico ou apontando para o WhatsApp em vez de responder.
 - [x] Paleta oficial de 6 cores, aplicada com contraste verificado
 - [x] 17 fotos tratadas e 3 vídeos comprimidos
 - [x] "20 min do centro de Areal" (dito pelo cliente no próprio reel)
-- [x] Vídeo de fundo da dobra, nas duas orientações, recortado acima da
-  legenda queimada do Instagram
+- [x] Vídeo de fundo da dobra, nas duas orientações, com o tour completo
+  (42s dos 47s do reel, ver observação abaixo)
 - [x] Prévia pública no ar: https://abalduinojose-cmd.github.io/Grand-Palazzo-/
 
 ## Decisões que mudam o site
@@ -23,12 +23,22 @@ escondido, genérico ou apontando para o WhatsApp em vez de responder.
 - [ ] **Existe perfil com avaliações?** (Airbnb, Booking ou Google) Com
   o link eu transcrevo os depoimentos reais e ligo a seção. Sem fonte,
   ela continua fora, porque não inventamos depoimento.
-- [ ] **Vídeo em resolução maior para a dobra.** O fundo da dobra já é
-  vídeo, montado com a órbita aérea dos primeiros segundos do reel. Só
-  que reel de Instagram vem em 720px de largura, e numa tela grande
-  isso é ampliado quase três vezes. Funciona, mas se você tiver o
-  arquivo original da filmagem (ou puder pedir ao cinegrafista), a
-  dobra fica bem mais nítida. Ideal: 1920x1080 ou mais, sem legenda.
+- [ ] **Vídeo do tour sem legenda, e em resolução maior.** O fundo da
+  dobra roda o tour completo, mas duas coisas ainda dependem de você:
+
+  1. **4 segundos ficaram fora.** Entre 37s e 41s o reel mostra a
+     chamada "FAÇA SUA RESERVA PELO LINK DA BIOGRAFIA", escrita no meio
+     do quadro. Não há recorte que tire, e é texto de Instagram, que no
+     site não faz sentido. Esses 4 segundos foram removidos e a emenda
+     tem um dissolve, então não se percebe. Com o arquivo sem legenda,
+     entram os 47 segundos inteiros.
+  2. **Resolução.** Reel de Instagram vem em 720px de largura, e numa
+     tela grande isso é ampliado. Funciona, mas com o arquivo original
+     da filmagem (ideal: 1920x1080 ou mais) a dobra fica bem mais
+     nítida.
+
+  Vale pedir os dois ao cinegrafista de uma vez: o arquivo original,
+  sem legenda nem chamada.
 
 ## Informações do imóvel
 - [ ] Capacidade (quantos hóspedes) — hoje o FAQ manda perguntar

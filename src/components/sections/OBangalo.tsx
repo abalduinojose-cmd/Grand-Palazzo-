@@ -23,7 +23,7 @@ export function OBangalo() {
         <header className="max-w-2xl">
           <Eyebrow>{copy.eyebrow}</Eyebrow>
           <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] leading-[1.1]">
-            {copy.titulo.antes} <em className="not-italic text-cafe">{copy.titulo.enfase}</em>
+            {copy.titulo.antes} <em className="italic text-cafe">{copy.titulo.enfase}</em>
             {copy.titulo.depois}
           </h2>
           <p className="mt-5 font-sans text-corpo text-(--fg-suave)">

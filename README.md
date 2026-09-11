@@ -75,8 +75,9 @@ O script faz três coisas além de redimensionar: afia a imagem (as fotos
 vieram de post do Instagram e chegam moles), respeita um teto de 620KB
 por foto, e aplica recorte ou correção de luz nas que precisam. Essas
 correções ficam no mapa `TRATAMENTO`, com o motivo escrito ao lado de
-cada uma. O vídeo de fundo da dobra sai de `scripts/videos.mjs`, que usa
-só os primeiros segundos do reel do tour, em loop espelhado.
+cada uma. O vídeo de fundo da dobra sai de `scripts/videos.mjs`, que monta o tour
+completo em duas orientações e tira só os 4 segundos em que o reel
+escreve "faça sua reserva pelo link da biografia" no meio do quadro.
 
 Para trocar qual foto abre o site ou qual entra na galeria, edite os
 mapas no fim de `src/assets/fotos/index.ts` (`heroFoto` e `galeria`).
@@ -96,6 +97,13 @@ A paleta oficial e as regras de uso estão comentadas no topo de
 o bege são bonitos mas têm pouco contraste, então só entram em título
 grande ou como enfeite, nunca em texto pequeno. O marrom e o café são os
 que podem carregar texto.
+
+As fontes são **Bodoni Moda** nos títulos e **Instrument Sans** no
+corpo. A Bodoni é a serifa italiana clássica, e aqui ela trabalha em
+três registros: fio fino nos títulos grandes, haste mais grossa nos
+nomes de ambiente, e itálico no destaque de cada título de seção. Nada
+disso precisa de ajuste manual: a fonte muda de desenho sozinha conforme
+o tamanho.
 
 ## Dados pendentes
 

@@ -53,9 +53,9 @@
 
   /* tipografia — Prata (display romana, conversa com o logo) +
      Manrope (corpo, humanista geométrica com latin-ext) */
-  --font-display: var(--font-prata), "Prata", ui-serif, Georgia, serif;
-  --font-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui,
-    sans-serif;
+  --font-display: var(--font-bodoni), "Bodoni Moda", ui-serif, Georgia, serif;
+  --font-sans: var(--font-instrument), "Instrument Sans", ui-sans-serif,
+    system-ui, sans-serif;
 
   /* escala tipográfica fluida */
   --text-display: clamp(2.5rem, 7.5vw, 6rem);
@@ -119,6 +119,10 @@ body {
   color: var(--color-marrom);
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
+  /* O eixo opsz da Bodoni Moda segue o tamanho da letra sozinho: fio
+     fino no título grande, haste mais grossa no texto miúdo. É o que
+     faz uma serifa de alto contraste funcionar nas duas pontas. */
+  font-optical-sizing: auto;
 }
 
 ::selection {
@@ -168,17 +172,24 @@ body {
    todos (0,03), porque é ali que a represa aparece.
 
    Números conferidos no navegador, compondo quadro do vídeo + véu e
-   medindo pixel a pixel ao longo do loop, por linha de texto:
-   rótulo 6,1:1 · título 3,5:1 · microlinha 6,2:1 no desktop, e
-   5,0:1 / 5,7:1 / 5,9:1 no celular. O mínimo AA é 4,5:1 em texto
-   pequeno e 3:1 no título (80px conta como texto grande). */
+   medindo pixel a pixel POR LINHA de texto, de dois em dois segundos
+   ao longo dos 42s inteiros do loop. O pior caso de cada um:
+
+     desktop   rótulo 7,2:1 · título 4,3:1 · microlinha 6,3:1
+     celular   rótulo 4,8:1 · título 5,8:1 · microlinha 6,6:1
+
+   O mínimo AA é 4,5:1 em texto pequeno e 3:1 no título (80px conta
+   como texto grande). Varredura densa importa: amostrando de 6 em 6
+   segundos o rótulo do celular aparecia com 7,5:1, e o pior caso real
+   estava no segundo 36, com 3,45:1, quando a represa clara passa
+   atrás dele. A calibragem saiu daí. */
 .veu-hero-mobile {
   background: linear-gradient(
     180deg,
-    rgb(23 18 11 / 0.48) 0%,
-    rgb(23 18 11 / 0.2) 20%,
-    rgb(23 18 11 / 0.62) 44%,
-    rgb(23 18 11 / 0.82) 72%,
+    rgb(23 18 11 / 0.46) 0%,
+    rgb(23 18 11 / 0.24) 15%,
+    rgb(23 18 11 / 0.58) 32%,
+    rgb(23 18 11 / 0.8) 62%,
     rgb(23 18 11 / 0.92) 100%
   );
 }
@@ -186,9 +197,9 @@ body {
   background:
     linear-gradient(
       100deg,
-      rgb(23 18 11 / 0.82) 0%,
-      rgb(23 18 11 / 0.64) 28%,
-      rgb(23 18 11 / 0.26) 56%,
+      rgb(23 18 11 / 0.84) 0%,
+      rgb(23 18 11 / 0.66) 28%,
+      rgb(23 18 11 / 0.28) 56%,
       rgb(23 18 11 / 0.05) 80%,
       rgb(23 18 11 / 0.02) 100%
     ),
@@ -196,9 +207,9 @@ body {
       180deg,
       rgb(23 18 11 / 0.36) 0%,
       rgb(23 18 11 / 0.03) 24%,
-      rgb(23 18 11 / 0.44) 58%,
-      rgb(23 18 11 / 0.62) 80%,
-      rgb(23 18 11 / 0.7) 100%
+      rgb(23 18 11 / 0.5) 54%,
+      rgb(23 18 11 / 0.68) 78%,
+      rgb(23 18 11 / 0.74) 100%
     );
 }
 .veu-foto {

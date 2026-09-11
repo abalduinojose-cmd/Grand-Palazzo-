@@ -1,27 +1,42 @@
 import type { Metadata } from "next";
-import { Manrope, Prata } from "next/font/google";
+import { Bodoni_Moda, Instrument_Sans } from "next/font/google";
 import { site, SITE_URL } from "@/content/site";
 import "./globals.css";
 
 /*
-  Prata: romana de alto contraste, na mesma família visual das serifas
-  lapidares do logo, mas fina o suficiente para não competir com ele.
-  Só existe no peso 400, o que aqui é vantagem: título grande em regular
-  com contraste alto é mais elegante que um display em bold.
-  Manrope: humanista geométrica para o corpo, com latin-ext.
+  Bodoni Moda no display. Bodoni era italiano e o nome da casa é
+  italiano, mas a escolha não é só simbólica: a Prata que estava aqui
+  tem UM peso só e nenhum itálico, então o display não tinha segundo
+  registro nenhum. A Bodoni Moda é variável em três eixos e resolve os
+  dois problemas de uma vez:
+
+  - `opsz` (6 a 96) é o que mais muda o site. A serifa de alto contraste
+    fica com fio finíssimo no título de 80px, que é onde ela é elegante,
+    e engrossa sozinha nos 20px do nome de ambiente, que é onde a Prata
+    sumia sobre fundo escuro. Uma família cobrindo os dois extremos.
+  - itálico de verdade, que virou o destaque dos títulos de seção (antes
+    era um <em> com not-italic e troca de cor, um meio-destaque).
+
+  Instrument Sans no corpo: grotesca contemporânea, um tiquinho estreita,
+  com itálico e peso variável. Entrou no lugar da Manrope, que é redonda
+  e geométrica e brigava com a serifa em vez de contrastar com ela.
+  Grotesca + didone é a dupla de revista, que é o registro do site.
+
   Zero requisição a fonts.googleapis.com em runtime (next/font self-host).
 */
-const prata = Prata({
-  variable: "--font-prata",
+const bodoni = Bodoni_Moda({
+  variable: "--font-bodoni",
   subsets: ["latin"],
   display: "swap",
-  weight: "400",
+  axes: ["opsz"],
+  style: ["normal", "italic"],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const instrument = Instrument_Sans({
+  variable: "--font-instrument",
   subsets: ["latin", "latin-ext"],
   display: "swap",
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -45,7 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${prata.variable} ${manrope.variable} h-full antialiased`}
+      className={`${bodoni.variable} ${instrument.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

@@ -24,7 +24,7 @@ export function Localizacao() {
             <Eyebrow>{eyebrow}</Eyebrow>
             <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] leading-[1.1]">
               {titulo.antes}{" "}
-              <em className="not-italic text-cafe">{titulo.enfase}</em>
+              <em className="italic text-cafe">{titulo.enfase}</em>
               {titulo.depois}
             </h2>
             <p className="mt-5 max-w-xl font-sans text-corpo text-(--fg-suave)">
