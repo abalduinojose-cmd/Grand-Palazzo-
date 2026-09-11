@@ -42,7 +42,7 @@ export function VideoReel({
   };
 
   return (
-    <div className="group/reel relative overflow-hidden rounded-3xl bg-marrom">
+    <div className="group/reel relative overflow-hidden rounded-3xl bg-noite">
       <video
         ref={videoRef}
         src={asset(src)}
@@ -65,7 +65,7 @@ export function VideoReel({
           "absolute inset-0 flex cursor-pointer items-center justify-center gap-3 transition-opacity duration-300 ease-suave",
           tocando
             ? "opacity-0 focus-within:opacity-100 group-hover/reel:opacity-100"
-            : "bg-marrom/25 opacity-100",
+            : "bg-noite/30 opacity-100",
         )}
       >
         <button
@@ -90,7 +90,7 @@ export function VideoReel({
             setMudo((m) => !m);
           }}
           aria-label={mudo ? somAtivar : somDesativar}
-          className="flex size-11 items-center justify-center rounded-full bg-marrom/60 text-creme backdrop-blur-sm transition-colors duration-300 ease-suave hover:bg-marrom/85"
+          className="flex size-11 items-center justify-center rounded-full bg-noite/65 text-creme backdrop-blur-sm transition-colors duration-300 ease-suave hover:bg-noite/90"
         >
           {mudo ? (
             <VolumeX className="size-5" aria-hidden="true" />

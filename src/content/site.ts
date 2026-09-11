@@ -230,7 +230,7 @@ export const home: Home = homeSchema.parse({
     eyebrow: "No Instagram",
     titulo: { antes: "O lugar", enfase: "em movimento", depois: "" },
     texto:
-      "Vídeos gravados no bangalô e publicados no @grandpalazzo_. Toque para assistir com som.",
+      "Gravados aqui no bangalô, do alto e de dentro. Toque para assistir com som.",
     reproduzir: "Reproduzir o vídeo",
     pausar: "Pausar o vídeo",
     somAtivar: "Ativar o som do vídeo",

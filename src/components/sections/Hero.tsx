@@ -1,59 +1,74 @@
-import { heroFoto } from "@/assets/fotos";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { Foto } from "@/components/ui/Foto";
-import { Frontao } from "@/components/ui/Frontao";
 import { Section } from "@/components/ui/Section";
 import { home, site } from "@/content/site";
 import { whatsappUrl } from "@/lib/utils";
+import { HeroLoop } from "./interactive/HeroLoop";
 
 /**
- * Hero fotográfico: a foto da fachada preenche a dobra e é o LCP da
- * página (priority). Sem vídeo de fundo, porque os três reels do
- * cliente têm legenda do Instagram queimada na imagem e o texto
- * colidiria com o H1 (ver CONTEUDO-PENDENTE.md).
+ * Dobra editorial: o marrom da marca domina, o vídeo do bangalô roda em
+ * loop numa moldura vertical e o texto ocupa a coluna larga.
  *
- * Seção inteira em Server Component: nada aqui precisa de JavaScript.
+ * O vídeo é 720x928 (recortado do reel, sem a legenda do Instagram),
+ * então entra em moldura em vez de fundo de tela cheia: em 1920px de
+ * largura ele seria esticado quase três vezes e ficaria mole. Assim
+ * fica nítido, e o LCP passa a ser o título, que é texto.
+ *
+ * A entrada é uma orquestração só, no carregamento (.entrada), em vez
+ * de microanimação espalhada pela seção.
  */
 export function Hero() {
   const { titulo, microlinha, cta, ctaSecundario } = home.hero;
 
   return (
-    <Section theme="marrom" id="topo">
-      <div className="relative flex min-h-[94svh] flex-col justify-end">
-        <Foto foto={heroFoto} preencher priority qualidade={60} sizes="100vw" />
-        <div className="veu-hero-mobile absolute inset-0 md:hidden" aria-hidden="true" />
-        <div
-          className="veu-hero-desktop absolute inset-0 hidden md:block"
-          aria-hidden="true"
-        />
+    <Section theme="marrom" id="topo" className="colunata">
+      <div className="luz-alta absolute inset-0" aria-hidden="true" />
 
-        <Container className="relative z-10 pb-24 pt-40 sm:pb-28">
-          <Frontao className="w-16 text-creme/85 sm:w-20" />
-          <h1 className="mt-6 max-w-3xl font-display text-display text-balance text-creme [text-shadow:0_2px_30px_rgb(0_0_0/0.5)]">
-            {titulo.antes}
-            <br className="hidden sm:block" /> {titulo.enfase}
-            {titulo.depois}
-          </h1>
-          <p className="mt-5 max-w-xl font-sans text-corpo text-creme/85 [text-shadow:0_1px_18px_rgb(0_0_0/0.55)]">
-            {microlinha}
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button
-              href={whatsappUrl(site.whatsapp, home.whatsapp.mensagem)}
-              target="_blank"
-              rel="noopener"
-              variante="creme"
-              className="px-7 py-3.5"
-            >
-              {cta}
-            </Button>
-            <Button href="#bangalo" variante="vidro" className="px-7 py-3.5">
-              {ctaSecundario}
-            </Button>
+      <Container className="relative flex min-h-[100svh] flex-col justify-center pb-16 pt-32 sm:pt-36">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+          <div className="entrada">
+            <p className="font-sans text-[0.6875rem] font-extrabold uppercase tracking-[0.28em] text-bege">
+              {site.localizacao}
+            </p>
+
+            {/* escala propria da dobra: o token display (96px) quebrava
+                em quatro linhas na coluna de 580px e deixava orfa a
+                ultima palavra. O balance distribui o resto. */}
+            <h1 className="mt-7 font-display text-[clamp(2.75rem,5.2vw,4.5rem)] leading-[1.04] tracking-[-0.015em] text-balance text-creme">
+              {titulo.antes} {titulo.enfase}
+              {titulo.depois}
+            </h1>
+
+            <p className="mt-7 max-w-md font-sans text-[1.0625rem] font-light leading-relaxed text-creme/70">
+              {microlinha}
+            </p>
+
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <Button
+                href={whatsappUrl(site.whatsapp, home.whatsapp.mensagem)}
+                target="_blank"
+                rel="noopener"
+                variante="sobre-marrom"
+                className="px-7 py-3.5"
+              >
+                {cta}
+              </Button>
+              <Button href="#bangalo" variante="vidro" className="px-7 py-3.5">
+                {ctaSecundario}
+              </Button>
+            </div>
           </div>
-        </Container>
-      </div>
+
+          {/* moldura do vídeo: 4:5 no celular, vertical cheio no desktop */}
+          <div className="entrada-video relative aspect-[4/5] w-full overflow-hidden rounded-[1.75rem] ring-1 ring-creme/15 lg:aspect-[720/928]">
+            <HeroLoop
+              src="/videos/hero-loop.mp4"
+              poster="/videos/hero-loop.jpg"
+              rotulo="Vista aérea do bangalô, o caminho de entrada, o deck e a hidromassagem"
+            />
+          </div>
+        </div>
+      </Container>
     </Section>
   );
 }
