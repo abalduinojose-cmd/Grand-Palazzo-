@@ -49,6 +49,16 @@ Regra da casa: onde ainda não há informação confirmada (capacidade,
 pets, café da manhã), a resposta orienta a perguntar no WhatsApp. Quando
 o dado for confirmado, troque por uma afirmação direta.
 
+## Prévia pública
+
+O site está no ar para você ver e mandar para quem quiser:
+**https://abalduinojose-cmd.github.io/Grand-Palazzo-/**
+
+É um endereço provisório, de teste. Ele não aparece no Google de
+propósito, para não competir com o domínio definitivo quando ele existir.
+Para atualizar a prévia depois de mudar algo: `npm run build:pages` e
+depois enviar para o GitHub.
+
 ## Como trocar as FOTOS e os VÍDEOS
 
 1. Coloque os arquivos novos em `midia/fotos/` ou `midia/videos/`.
@@ -60,6 +70,13 @@ o dado for confirmado, troque por uma afirmação direta.
 4. Se a cena mudou de conteúdo, atualize a descrição (`alt`) dela em
    `src/assets/fotos/index.ts`. Essa descrição é o que o Google e os
    leitores de tela entendem da imagem.
+
+O script faz três coisas além de redimensionar: afia a imagem (as fotos
+vieram de post do Instagram e chegam moles), respeita um teto de 620KB
+por foto, e aplica recorte ou correção de luz nas que precisam. Essas
+correções ficam no mapa `TRATAMENTO`, com o motivo escrito ao lado de
+cada uma. O vídeo de fundo da dobra sai de `scripts/videos.mjs`, que usa
+só os primeiros segundos do reel do tour, em loop espelhado.
 
 Para trocar qual foto abre o site ou qual entra na galeria, edite os
 mapas no fim de `src/assets/fotos/index.ts` (`heroFoto` e `galeria`).
@@ -99,3 +116,4 @@ Com o [Node.js](https://nodejs.org/) instalado, nesta pasta:
 | `npm run build:pages` | Atualiza a prévia pública (pasta `docs/`) |
 | `node scripts/fotos.mjs` | Processa as fotos de `midia/fotos/` |
 | `node scripts/logo.mjs` | Processa o logo de `arte/logo-original.png` |
+| `node scripts/videos.mjs` | Remonta o vídeo de fundo da dobra |

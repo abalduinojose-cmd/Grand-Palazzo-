@@ -12,6 +12,9 @@ escondido, genérico ou apontando para o WhatsApp em vez de responder.
 - [x] Paleta oficial de 6 cores, aplicada com contraste verificado
 - [x] 17 fotos tratadas e 3 vídeos comprimidos
 - [x] "20 min do centro de Areal" (dito pelo cliente no próprio reel)
+- [x] Vídeo de fundo da dobra, nas duas orientações, recortado acima da
+  legenda queimada do Instagram
+- [x] Prévia pública no ar: https://abalduinojose-cmd.github.io/Grand-Palazzo-/
 
 ## Decisões que mudam o site
 - [ ] **Existe link de reserva?** Hoje todo botão vai para o WhatsApp.
@@ -20,10 +23,12 @@ escondido, genérico ou apontando para o WhatsApp em vez de responder.
 - [ ] **Existe perfil com avaliações?** (Airbnb, Booking ou Google) Com
   o link eu transcrevo os depoimentos reais e ligo a seção. Sem fonte,
   ela continua fora, porque não inventamos depoimento.
-- [ ] **Vídeo no hero.** Os três reels têm a legenda do Instagram
-  queimada na imagem, e o texto colidiria com o título do site. Hoje o
-  hero usa foto. Se você tiver o vídeo sem legenda (ou um trecho limpo
-  de 8 a 10 segundos), eu coloco o vídeo de fundo.
+- [ ] **Vídeo em resolução maior para a dobra.** O fundo da dobra já é
+  vídeo, montado com a órbita aérea dos primeiros segundos do reel. Só
+  que reel de Instagram vem em 720px de largura, e numa tela grande
+  isso é ampliado quase três vezes. Funciona, mas se você tiver o
+  arquivo original da filmagem (ou puder pedir ao cinegrafista), a
+  dobra fica bem mais nítida. Ideal: 1920x1080 ou mais, sem legenda.
 
 ## Informações do imóvel
 - [ ] Capacidade (quantos hóspedes) — hoje o FAQ manda perguntar
@@ -62,4 +67,5 @@ escondido, genérico ou apontando para o WhatsApp em vez de responder.
 ## Publicação
 - [ ] Domínio definitivo (hoje o código usa grandpalazzo.com.br como
   provisório em canonical, sitemap e dados estruturados)
-- [ ] Nome do repositório no GitHub, para a prévia pública
+- [x] Repositório no GitHub: `abalduinojose-cmd/Grand-Palazzo-`, com a
+  prévia servida de `main:/docs`
