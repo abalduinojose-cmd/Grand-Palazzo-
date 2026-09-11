@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 /* PAGES=1 gera a prévia estática do GitHub Pages, que serve o site numa
-   subpasta (/grandpalazzo) e não tem servidor para otimizar imagem.
-   TODO confirmar o nome definitivo do repositório com o cliente. */
+   subpasta e não tem servidor para otimizar imagem. O basePath é o nome
+   do repositório, hífen final incluído. */
 const pages = process.env.PAGES === "1";
-const basePath = pages ? "/grandpalazzo" : "";
+const basePath = pages ? "/Grand-Palazzo-" : "";
+const previa = `https://abalduinojose-cmd.github.io${basePath}`;
 
 const nextConfig: NextConfig = {
   /* O botão "N" flutuante é só a devtools do Next em modo dev; fora. */
@@ -16,7 +17,11 @@ const nextConfig: NextConfig = {
         assetPrefix: basePath,
         // distDir próprio: o build da prévia não atropela o .next local
         distDir: ".next-pages",
-        env: { NEXT_PUBLIC_BASE_PATH: basePath },
+        /* A prévia precisa da própria URL: sem isso o canonical, o
+           sitemap e a imagem de compartilhamento apontam para o domínio
+           definitivo, que ainda não existe, e o cartão do WhatsApp sai
+           sem imagem quando o cliente manda o link para alguém. */
+        env: { NEXT_PUBLIC_BASE_PATH: basePath, NEXT_PUBLIC_SITE_URL: previa },
       }
     : {}),
   images: {

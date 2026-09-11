@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,38347,a=>{a.q("/Grand-Palazzo-/_next/static/media/palazzo.32e0cv5-gpvdn.png")}]);

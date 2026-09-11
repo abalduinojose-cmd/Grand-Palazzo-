@@ -21,6 +21,7 @@ import deckVistaCasal from "./deck-vista-casal.jpg";
 import escadaDePedra from "./escada-de-pedra.jpg";
 import fachadaEspreguicadeira from "./fachada-espreguicadeira.jpg";
 import fachadaFrontal from "./fachada-frontal.jpg";
+import heroAereo from "./hero-aereo.jpg";
 import hidroComFrios from "./hidro-com-frios.jpg";
 import lareiraComVinho from "./lareira-com-vinho.jpg";
 import piscinaBambuzal from "./piscina-bambuzal.jpg";
@@ -98,27 +99,42 @@ export const fotos = {
     src: escadaDePedra,
     alt: "Escada de pedra com corrimão subindo pelo jardim até o bangalô, cercada de grama e muro verde",
   },
+  heroAereo: {
+    src: heroAereo,
+    alt: "Vista aérea do bangalô: telhado de telha vermelha entre ipês roxos, gramado, piscina e a represa de Areal ao fundo",
+  },
   bicaDeBambu: {
     src: bicaDeBambu,
     alt: "Bica de bronze em formato de bambu enchendo um copo de cristal sobre tronco de madeira, em meio à vegetação",
   },
 } satisfies Record<string, Foto>;
 
-/** Foto de abertura: a que resume o bangalô em uma imagem. */
-export const heroFoto: Foto = fotos.fachadaEspreguicadeira;
+/** Pôster da dobra: primeiro quadro do vídeo de fundo, para a troca
+    entre imagem e vídeo ser imperceptível (ver scripts/videos.mjs). */
+export const heroFoto: Foto = fotos.heroAereo;
 
-/** Sequência da galeria, em ordem de narrativa: chegar, entrar, ficar. */
+/**
+ * Sequência da galeria, em ordem de narrativa: a água, os cantos de
+ * dentro, a mesa, o jardim e por fim a noite. A ordem importa porque o
+ * trilho é arrastável e as três primeiras são as que quase todo mundo
+ * vê.
+ *
+ * A fachada com espreguiçadeira ficou de fora daqui de propósito: ela é
+ * a carta grande da seção do bangalô, e repetir a mesma imagem duas
+ * vezes na mesma página enfraquece as duas.
+ */
 export const galeria: Foto[] = [
-  fotos.fachadaEspreguicadeira,
   fotos.piscinaComVista,
+  fotos.piscinaDeDia,
   fotos.hidroComFrios,
-  fotos.camaRomantica,
+  fotos.salaComLareira,
   fotos.lareiraComVinho,
+  fotos.camaRomantica,
   fotos.cafeNoJardim,
+  fotos.cafeComemorativo,
   fotos.deckSuspenso,
   fotos.daybedJardim,
   fotos.piscinaBambuzal,
   fotos.bicaDeBambu,
-  fotos.escadaDePedra,
   fotos.deckANoite,
 ];

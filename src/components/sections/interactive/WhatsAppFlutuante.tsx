@@ -15,6 +15,10 @@ type WhatsAppFlutuanteProps = {
 /**
  * Botão flutuante de WhatsApp com a mensagem já preenchida. Entra em
  * cena depois do hero, para não competir com os dois CTAs da dobra.
+ *
+ * Fica no verde da própria marca do WhatsApp, não na paleta da casa:
+ * é o único elemento do site que precisa ser reconhecido antes de ser
+ * lido. O porquê do contraste está comentado no token, no globals.css.
  */
 export function WhatsAppFlutuante({
   numero,
@@ -44,8 +48,9 @@ export function WhatsAppFlutuante({
       rel="noopener"
       aria-label={ariaLabel}
       className={cx(
-        "fixed bottom-6 right-5 z-40 flex size-14 items-center justify-center rounded-full bg-marrom text-creme shadow-[0_8px_24px_-8px_rgb(23_18_11/0.7)]",
-        "transition-[opacity,transform,background-color] duration-500 ease-suave hover:bg-noite",
+        "fixed bottom-6 right-5 z-40 flex size-14 items-center justify-center rounded-full",
+        "bg-whatsapp text-branco ring-1 ring-whatsapp-fundo/60 shadow-[0_8px_24px_-8px_rgb(23_18_11/0.7)]",
+        "transition-[opacity,transform,background-color] duration-500 ease-suave hover:bg-whatsapp-fundo",
         visivel
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-3 opacity-0",

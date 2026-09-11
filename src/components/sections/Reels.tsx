@@ -25,7 +25,7 @@ export function Reels() {
       <Container className="relative">
         <header className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
           <div className="max-w-xl">
-            <p className="font-sans text-[0.6875rem] font-extrabold uppercase tracking-[0.28em] text-bege">
+            <p className="font-sans text-[0.6875rem] font-extrabold uppercase tracking-[0.28em] text-creme">
               {copy.eyebrow}
             </p>
             <h2 className="mt-5 font-display text-balance text-[clamp(2rem,4.8vw,3.8rem)] leading-[1.05] text-creme">
@@ -48,7 +48,7 @@ export function Reels() {
               marca="instagram"
               className="size-5 text-creme transition-colors duration-300 ease-suave group-hover:text-bege"
             />
-            <span className="font-display text-entre text-creme transition-colors duration-300 ease-suave group-hover:text-bege">
+            <span className="font-display text-entre text-creme">
               {site.instagram.handle}
             </span>
           </a>

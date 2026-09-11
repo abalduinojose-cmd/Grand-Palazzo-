@@ -13,7 +13,11 @@ import { z } from "zod";
  * URL canônica, usada em metadataBase, sitemap, robots e JSON-LD.
  * TODO confirmar o domínio definitivo com o cliente.
  */
-export const SITE_URL = "https://grandpalazzo.com.br";
+/* Domínio definitivo (ainda a confirmar, ver CONTEUDO-PENDENTE.md). A
+   prévia do GitHub Pages injeta a própria URL por env, então canonical,
+   sitemap e cartão de compartilhamento ficam certos nos dois lugares. */
+const DOMINIO = "https://grandpalazzo.com.br";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? DOMINIO;
 
 export const siteSchema = z.object({
   nome: z.string().min(1),

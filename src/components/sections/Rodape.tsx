@@ -56,7 +56,7 @@ export function Rodape() {
             <a
               key={ancora.href}
               href={ancora.href}
-              className="font-sans text-corpo text-creme/85 transition-colors duration-300 ease-suave hover:text-bege"
+              className="font-sans text-corpo text-creme/85 transition-colors duration-300 ease-suave hover:text-creme"
             >
               {ancora.rotulo}
             </a>

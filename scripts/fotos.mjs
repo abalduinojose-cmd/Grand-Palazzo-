@@ -5,7 +5,8 @@
  * mora no catálogo (src/assets/fotos/index.ts). Imports estáticos dão
  * width/height e blur automáticos ao next/image, então o CLS fica zero.
  *
- * Idempotente: só reprocessa se o original for mais novo que o destino.
+ * Idempotente: só reprocessa se o original (ou este script) for mais
+ * novo que o destino.
  *
  *   node scripts/fotos.mjs
  */
@@ -17,9 +18,22 @@ const RAIZ = path.resolve(import.meta.dirname, "..");
 const ORIGEM = path.join(RAIZ, "midia", "fotos");
 const DESTINO = path.join(RAIZ, "src", "assets", "fotos");
 
-/** Lado maior em 2200px: sobra resolução para hero sem passar de ~500KB. */
+/** Lado maior em 2200px: sobra resolução para hero sem passar do teto. */
 const LADO_MAX = 2200;
-const QUALIDADE = 80;
+
+/* Teto de peso por foto. Quem passa cai de qualidade até caber: numa
+   foto de folhagem cheia de detalhe fino, 84 pode dar 1MB, e 1MB de
+   uma imagem só derruba o carregamento no celular. A escada desce em
+   passos pequenos para a perda não aparecer. */
+const QUALIDADES = [84, 79, 74, 68];
+const TETO_KB = 620;
+
+/* Todas as fotos vieram de post do Instagram, ou seja: já foram
+   recomprimidas uma vez e chegaram moles. Depois de reduzir, uma
+   máscara de nitidez devolve o microcontraste que o caminho comeu.
+   m1 baixo e m2 alto de propósito: afia borda e deixa em paz as áreas
+   lisas (céu, parede, água), que é onde halo e grão apareceriam. */
+const NITIDEZ = { sigma: 0.8, m1: 0.35, m2: 0.9 };
 
 const GP = (id, sufixo) => `grandpalazzo__${id}_${sufixo}_79031671140.jpg`;
 const KS = (sufixo) => `kasanntoss_1776728283_${sufixo}_590395947.jpg`;
@@ -45,6 +59,46 @@ const CURADORIA = {
   [KS("3879800502410648409")]: "deck-a-noite.jpg",
 };
 
+/**
+ * Tratamento foto a foto, só onde há motivo medido.
+ *
+ * `recorte` é em fração do original (0 a 1), e serve para tirar do
+ * quadro o que atrapalha a venda: braço de hóspede, embalagem de
+ * mercado com rótulo à vista, sobra de chão sem informação. Recortar é
+ * honesto; o que a foto mostra continua sendo o que existe no lugar.
+ *
+ * `luz` passa direto para o sharp: `clareia` soma em L* (lift
+ * perceptual de exposição) e `contraste` é o par [ganho, deslocamento]
+ * do linear(). Os números vêm da medição de luminância média e desvio
+ * do conjunto inteiro, não de olhômetro.
+ */
+const TRATAMENTO = {
+  "bica-de-bambu.jpg": {
+    recorte: { esquerda: 0.47, topo: 0, largura: 0.53, altura: 1 },
+    porque: "o braço e o relógio do hóspede ocupavam quase metade do quadro",
+  },
+  "cafe-comemorativo.jpg": {
+    recorte: { esquerda: 0, topo: 0, largura: 0.62, altura: 0.82 },
+    porque: "embalagem de mercado com rótulo legível no canto inferior",
+  },
+  "fachada-frontal.jpg": {
+    recorte: { esquerda: 0, topo: 0, largura: 1, altura: 0.79 },
+    porque: "quase um quarto do quadro era grama sintética vazia",
+  },
+  "deck-a-noite.jpg": {
+    luz: { clareia: 11, contraste: [1.06, 0] },
+    porque: "luminância média 44, contra 85 da segunda mais escura",
+  },
+  "piscina-de-dia.jpg": {
+    luz: { contraste: [1.12, -10] },
+    porque: "desvio 46: a foto mais chapada do conjunto",
+  },
+  "hidro-com-frios.jpg": {
+    luz: { clareia: 4 },
+    porque: "luz roxa da hidro derruba a leitura da tábua de frios",
+  },
+};
+
 const mtime = async (arquivo) => {
   try {
     return (await stat(arquivo)).mtimeMs;
@@ -52,6 +106,10 @@ const mtime = async (arquivo) => {
     return null;
   }
 };
+
+/* O script entra na conta da idempotência: mudou o tratamento, tudo
+   reprocessa, sem precisar apagar a pasta na mão. */
+const mScript = await mtime(path.join(RAIZ, "scripts", "fotos.mjs"));
 
 let feitas = 0;
 let puladas = 0;
@@ -66,22 +124,56 @@ for (const [de, para] of Object.entries(CURADORIA)) {
     continue;
   }
   await mkdir(path.dirname(destino), { recursive: true });
-  if (mDestino !== null && mOrigem <= mDestino) {
+  if (mDestino !== null && Math.max(mOrigem, mScript ?? 0) <= mDestino) {
     puladas++;
     continue;
   }
+
+  const { recorte, luz, porque } = TRATAMENTO[para] ?? {};
+
   // rotate() sem argumento assa a orientação EXIF no pixel (fotos de celular).
-  const { size } = await sharp(origem)
-    .rotate()
-    .resize({
-      width: LADO_MAX,
-      height: LADO_MAX,
-      fit: "inside",
-      withoutEnlargement: true,
-    })
-    .jpeg({ quality: QUALIDADE, mozjpeg: true })
-    .toFile(destino);
-  console.log(`${para}  ${(size / 1024).toFixed(0)}KB`);
+  let img = sharp(origem).rotate();
+
+  if (recorte) {
+    /* extract precisa de pixel, e a rotação EXIF pode ter trocado
+       largura por altura: o tamanho real só se conhece depois dela,
+       então o recorte sai de um buffer já rotacionado. */
+    const buf = await img.toBuffer();
+    const { width, height } = await sharp(buf).metadata();
+    img = sharp(buf).extract({
+      left: Math.round(width * recorte.esquerda),
+      top: Math.round(height * recorte.topo),
+      width: Math.round(width * recorte.largura),
+      height: Math.round(height * recorte.altura),
+    });
+  }
+
+  img = img.resize({
+    width: LADO_MAX,
+    height: LADO_MAX,
+    fit: "inside",
+    withoutEnlargement: true,
+  });
+
+  if (luz?.clareia) img = img.modulate({ lightness: luz.clareia });
+  if (luz?.contraste) img = img.linear(luz.contraste[0], luz.contraste[1]);
+
+  const afiada = img.sharpen(NITIDEZ);
+  let size = 0;
+  let usada = QUALIDADES[0];
+  for (const q of QUALIDADES) {
+    ({ size } = await afiada
+      .clone()
+      .jpeg({ quality: q, mozjpeg: true })
+      .toFile(destino));
+    usada = q;
+    if (size / 1024 <= TETO_KB) break;
+  }
+
+  console.log(
+    `${para.padEnd(30)} ${(size / 1024).toFixed(0).padStart(4)}KB q${usada}` +
+      (porque ? `  (${porque})` : ""),
+  );
   feitas++;
 }
 console.log(`\n${feitas} processadas, ${puladas} em dia, ${semOrigem} sem original.`);

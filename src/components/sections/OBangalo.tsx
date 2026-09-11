@@ -34,7 +34,7 @@ export function OBangalo() {
         <div className="mt-12 grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:items-stretch lg:gap-12">
           <figure className="group reveal relative min-h-[60svh] overflow-hidden rounded-3xl lg:min-h-[70svh]">
             <Foto
-              foto={fotos.fachadaFrontal}
+              foto={fotos.fachadaEspreguicadeira}
               preencher
               zoom
               sizes="(min-width: 1024px) 60vw, 100vw"

@@ -16,6 +16,15 @@
 
   Botão primário: fundo marrom + texto creme (8,2:1). Dourado de fundo
   com texto creme daria 3,9:1 e reprovaria, então dourado fica na borda.
+
+  Daí os DOIS acentos por tema, que é o que impede a regra de cima de
+  ser furada sem querer:
+  - --acento       cor de GRAFISMO (fio, borda, ícone, pictograma).
+                   Precisa de 3:1, e o bege entrega 3,8:1 sobre marrom.
+  - --acento-texto cor de TEXTO pequeno (rótulo de seção, link).
+                   Precisa de 4,5:1, então no escuro é creme, não bege.
+  Rótulo de seção em bege sobre marrom dá 3,8:1 e reprova; sobre vídeo,
+  medido na dobra, chegou a 2,5:1. É texto: vai de creme.
 */
 @theme {
   /* neutraliza a roda padrão do Tailwind: só os tokens da marca existem */
@@ -31,6 +40,16 @@
   --color-current: currentColor;
   /* noite: o marrom da casa levado ao breu, para o fim do scroll */
   --color-noite: color-mix(in oklab, #50452f 62%, #17120b);
+
+  /* Verde do WhatsApp, fora da paleta da casa de propósito: o botão
+     flutuante só é reconhecido de longe na cor da própria marca. O par
+     claro/escuro é o oficial deles (#25D366 e o verde de topo de tela).
+     O símbolo branco sobre o verde claro mede 1,96:1, abaixo do 3:1 que
+     seguimos em grafismo, e fica assim porque é esse o par que as
+     pessoas identificam; em compensação o símbolo é grande (28px,
+     sólido) e o anel escuro dá borda ao botão em qualquer fundo. */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-fundo: #128c7e;
 
   /* tipografia — Prata (display romana, conversa com o logo) +
      Manrope (corpo, humanista geométrica com latin-ext) */
@@ -63,6 +82,7 @@
   --fg: var(--color-marrom);
   --fg-suave: rgb(80 69 47 / 0.72);
   --acento: var(--color-cafe);
+  --acento-texto: var(--color-cafe);
   --fio: rgb(138 116 77 / 0.28);
 }
 [data-theme="offwhite"] {
@@ -70,6 +90,7 @@
   --fg: var(--color-marrom);
   --fg-suave: rgb(80 69 47 / 0.72);
   --acento: var(--color-cafe);
+  --acento-texto: var(--color-cafe);
   --fio: rgb(138 116 77 / 0.32);
 }
 [data-theme="marrom"] {
@@ -77,6 +98,7 @@
   --fg: var(--color-creme);
   --fg-suave: rgb(246 239 227 / 0.76);
   --acento: var(--color-bege);
+  --acento-texto: var(--color-creme);
   --fio: rgb(246 239 227 / 0.2);
 }
 [data-theme="noite"] {
@@ -84,6 +106,7 @@
   --fg: var(--color-creme);
   --fg-suave: rgb(246 239 227 / 0.74);
   --acento: var(--color-bege);
+  --acento-texto: var(--color-creme);
   --fio: rgb(246 239 227 / 0.18);
 }
 
@@ -132,31 +155,50 @@ body {
   }
 }
 
-/* Véus de legibilidade sobre foto: sombra do marrom da casa, nunca
-   cinza puro. Mobile vertical (texto na base), desktop diagonal a
-   100deg (texto à esquerda, a foto respira à direita). */
+/* Véus de legibilidade sobre vídeo: sombra do marrom da casa, nunca
+   cinza puro.
+   Calibrados para a dobra atual, onde o texto ocupa os dois terços de
+   baixo: o topo fica claro para a cena aérea respirar (e para o logo do
+   cabeçalho ler), adensa a partir de 38% e fecha na base. A curva de
+   antes tinha 0,14 em 40% da altura, que é justamente onde o rótulo
+   passou a cair, e ele sumia dentro da folhagem clara.
+   No desktop são duas camadas: a diagonal a 100deg escurece a coluna
+   do texto, e a vertical adensa a metade de baixo, que é onde o texto
+   mora de verdade. O canto superior direito fica no mais claro de
+   todos (0,03), porque é ali que a represa aparece.
+
+   Números conferidos no navegador, compondo quadro do vídeo + véu e
+   medindo pixel a pixel ao longo do loop, por linha de texto:
+   rótulo 6,1:1 · título 3,5:1 · microlinha 6,2:1 no desktop, e
+   5,0:1 / 5,7:1 / 5,9:1 no celular. O mínimo AA é 4,5:1 em texto
+   pequeno e 3:1 no título (80px conta como texto grande). */
 .veu-hero-mobile {
   background: linear-gradient(
     180deg,
-    rgb(23 18 11 / 0.44) 0%,
-    rgb(23 18 11 / 0.14) 40%,
-    rgb(23 18 11 / 0.84) 100%
+    rgb(23 18 11 / 0.48) 0%,
+    rgb(23 18 11 / 0.2) 20%,
+    rgb(23 18 11 / 0.62) 44%,
+    rgb(23 18 11 / 0.82) 72%,
+    rgb(23 18 11 / 0.92) 100%
   );
 }
 .veu-hero-desktop {
   background:
     linear-gradient(
       100deg,
-      rgb(23 18 11 / 0.8) 0%,
-      rgb(23 18 11 / 0.46) 38%,
-      rgb(23 18 11 / 0.12) 68%,
+      rgb(23 18 11 / 0.82) 0%,
+      rgb(23 18 11 / 0.64) 28%,
+      rgb(23 18 11 / 0.26) 56%,
+      rgb(23 18 11 / 0.05) 80%,
       rgb(23 18 11 / 0.02) 100%
     ),
     linear-gradient(
       180deg,
-      rgb(23 18 11 / 0.44) 0%,
-      rgb(23 18 11 / 0.05) 30%,
-      rgb(23 18 11 / 0.52) 100%
+      rgb(23 18 11 / 0.36) 0%,
+      rgb(23 18 11 / 0.03) 24%,
+      rgb(23 18 11 / 0.44) 58%,
+      rgb(23 18 11 / 0.62) 80%,
+      rgb(23 18 11 / 0.7) 100%
     );
 }
 .veu-foto {
@@ -419,5 +461,73 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Dobra em vídeo: abertura, deriva e chegada                        */
+/* ---------------------------------------------------------------- */
+
+/* Abertura: a dobra começa escura e clareia. Dá o respiro de cortina
+   subindo, e de quebra esconde o instante em que o vídeo assume o
+   lugar do pôster. */
+@keyframes dobra-clarear {
+  from {
+    opacity: 0.62;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Chegada: a mídia entra um pouco maior e assenta. O zoom mora num
+   filho próprio para não disputar o transform com a deriva do scroll. */
+@keyframes dobra-assenta {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Deriva: enquanto a dobra sai de cena a mídia desce devagar. O scale
+   fixo de 1.1 cobre a folga do translate, então nunca aparece borda. */
+@keyframes dobra-deriva {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.1);
+  }
+  to {
+    transform: translate3d(0, 6%, 0) scale(1.1);
+  }
+}
+
+/* Estado de repouso da cortina: fora de cena. Ela SÓ existe como
+   animação, e a animação vive dentro do prefers-reduced-motion. Sem
+   este opacity:0 aqui, quem pede menos movimento não recebe a animação
+   e fica com a cortina parada em cima da dobra, ou seja: a dobra
+   inteira virava um retângulo marrom. */
+.dobra-clarear {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dobra-clarear {
+    animation: dobra-clarear 1.4s ease-out both;
+  }
+  .dobra-assenta {
+    animation: dobra-assenta 2.8s var(--ease-suave) both;
+  }
+
+  /* Só do tablet para cima: no celular a moldura já é vertical e a
+     folga do translate voltaria a aparar as laterais da cena. */
+  @supports (animation-timeline: scroll(root block)) {
+    @media (min-width: 768px) {
+      .dobra-deriva {
+        animation: dobra-deriva linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 100vh;
+      }
+    }
   }
 }
