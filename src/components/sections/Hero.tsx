@@ -105,14 +105,20 @@ export function Hero() {
             Areal", coisa que a etiqueta logo acima já diz. Virou os
             três argumentos em itens curtos, separados por ponto: lê-se
             de relance, que é o que uma dobra pede. */}
-        <ul className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-sans text-[1.0625rem] text-creme [text-shadow:0_1px_18px_rgb(23_18_11/0.6)] sm:text-[1.125rem]">
+        {/* Cinco argumentos, em pastilhas de contorno.
+            Com três itens uma linha de pontos dava conta; com cinco
+            ela vira um paredão de texto que quebra feio no celular. Em
+            pastilha cada fato tem seu próprio corpo, a quebra fica
+            certa em qualquer largura e o conjunto lê como ficha, que é
+            o registro moderno para isso.
+            Só contorno, sem preenchimento: o véu embaixo já garante o
+            contraste (medido em 10,8:1) e fundo cheio taparia a cena. */}
+        <ul className="mt-7 flex max-w-2xl flex-wrap gap-2">
           {argumentos.map((argumento) => (
-            /* O ponto vem antes de TODO item, inclusive do primeiro.
-               Com ele só entre os itens, a lista quebrava no celular e
-               a segunda linha começava com um ponto solto, parecendo
-               erro. Assim cada item carrega o seu, e a quebra fica
-               certa em qualquer largura. */
-            <li key={argumento} className="flex items-center gap-2.5">
+            <li
+              key={argumento}
+              className="flex items-center gap-2 rounded-full border border-creme/30 py-1.5 pl-2.5 pr-3.5 font-sans text-[0.9375rem] text-creme [text-shadow:0_1px_14px_rgb(23_18_11/0.55)] sm:text-base"
+            >
               <span aria-hidden className="size-1 shrink-0 rounded-full bg-bege" />
               {argumento}
             </li>

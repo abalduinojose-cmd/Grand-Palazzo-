@@ -16,7 +16,13 @@ export function Rodape() {
   const ano = new Date().getFullYear();
 
   return (
-    <footer data-theme="noite" className="relative bg-(--bg) text-(--fg)">
+    /* A colunata (as pilastras de 1px da casa) entra aqui: é fundo
+       chapado e sem imagem, que é justamente onde ela tem o que fazer.
+       Saiu da dobra e da seção do Instagram porque sobre vídeo e sobre
+       cartaz colorido ela vira sujeira. */
+    <footer data-theme="noite" className="colunata relative bg-(--bg) text-(--fg)">
+      <div className="luz-alta absolute inset-x-0 top-0 h-40" aria-hidden="true" />
+
       <Container className="relative flex flex-col items-center gap-8 pt-20 text-center sm:pt-24">
         <LogoMascara className="h-20 text-creme sm:h-24" />
 
@@ -72,6 +78,10 @@ export function Rodape() {
       <Container className="relative mt-14 border-t border-creme/15 py-8">
         <p className="text-center font-sans text-legenda text-(--fg-suave)">
           © {ano} {site.nome}
+          <span className="mx-1.5" aria-hidden="true">
+            ·
+          </span>
+          {copy.direitos}
         </p>
       </Container>
     </footer>

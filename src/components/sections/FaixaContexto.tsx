@@ -5,6 +5,11 @@ import { home } from "@/content/site";
 /**
  * Faixa de contexto: quatro fatos, centrados, sem nada em volta.
  *
+ * Cada célula abre com um emoji, no vocabulário que o próprio cliente
+ * usa na bio do Instagram (🛖 e 📍). Ele entra como decoração pura,
+ * marcado aria-hidden: quem lê por leitor de tela recebe a frase do
+ * <dt>, que já descreve o item.
+ *
  * No formato da referência que o cliente mandou: o dado grande e em
  * NEGRITO, com uma passagem de cor (café -> dourado, ver .dado-degrade
  * no globals.css), a frase curta e miúda embaixo, e só o ar separando
@@ -44,8 +49,15 @@ export function FaixaContexto() {
               style={{ "--reveal-atraso": `${i * 5}%` } as CSSProperties}
               className="reveal text-center"
             >
+              {/* O emoji fica FORA do elemento com degradê: o
+                  background-clip: text recortaria ele junto e o
+                  desenho sairia lavado. */}
+              <p aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
+                {item.emoji}
+              </p>
+
               <dt className="sr-only">{item.resto}</dt>
-              <dd className="dado-degrade font-display text-[clamp(1.625rem,5.4vw,2.625rem)] font-bold leading-[1.05] tracking-[-0.032em]">
+              <dd className="dado-degrade mt-4 font-display text-[clamp(1.625rem,5.4vw,2.625rem)] font-bold leading-[1.05] tracking-[-0.032em]">
                 {item.destaque}
               </dd>
               <dd className="mx-auto mt-3 max-w-[22ch] font-sans text-legenda text-(--fg-suave)">

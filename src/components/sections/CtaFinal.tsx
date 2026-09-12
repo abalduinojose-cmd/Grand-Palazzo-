@@ -23,7 +23,11 @@ export function CtaFinal() {
   return (
     <>
       <div className="grad-anoitecer textura-ruido">
-        <p className="relative z-[2] mx-auto max-w-2xl px-5 pt-28 text-center font-display text-entre text-creme [text-shadow:0_1px_16px_rgb(0_0_0/0.45)] sm:pt-36">
+        {/* Na cor da logo, o marrom da casa. E não é só estética: a
+            frase cai em 9,2% do gradiente, ou seja ainda no creme, e
+            estava em creme sobre creme, legível só por causa de uma
+            sombra. Marrom sobre creme dá 8,2:1 e dispensa a muleta. */}
+        <p className="relative z-[2] mx-auto max-w-2xl px-5 pt-28 text-center font-display text-entre text-marrom sm:pt-36">
           {linhaNoite}
         </p>
         {/* A foto que a frase acima descreve, no formato do arquivo e

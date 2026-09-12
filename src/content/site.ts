@@ -90,7 +90,7 @@ export const homeSchema = z.object({
     /* Os três argumentos da dobra, em itens curtos. Era uma frase
        corrida que repetia "na represa de Areal", que a etiqueta logo
        acima já diz. */
-    argumentos: z.array(z.string().min(1).max(24)).min(2).max(4),
+    argumentos: z.array(z.string().min(1).max(24)).min(2).max(6),
     cta: z.string().min(1),
     ctaSecundario: z.string().min(1),
   }),
@@ -99,7 +99,14 @@ export const homeSchema = z.object({
       z.object({
         destaque: z.string().min(1),
         resto: z.string().min(1),
-        pictograma: z.enum(["estrada", "piscina", "hidro", "bangalo"]),
+        /* Emoji do item, no vocabulário do próprio cliente, que usa
+           emoji na bio do Instagram.
+
+           Cuidado ao trocar: emoji novo não existe em máquina antiga e
+           vira quadradinho. O 🛖 da bio dele, por exemplo, é de 2020 e
+           não está na fonte do Windows 10, então virou 🏡 aqui. Na
+           dúvida, ficar nos emoji antigos e universais. */
+        emoji: z.string().min(1).max(4),
       }),
     )
     .length(4),
@@ -172,6 +179,7 @@ export const homeSchema = z.object({
       instagram: z.string().min(1),
       whatsapp: z.string().min(1),
     }),
+    direitos: z.string().min(1),
   }),
   whatsapp: z.object({
     mensagem: z.string().min(1),
@@ -199,15 +207,21 @@ export const home: Home = homeSchema.parse({
       enfase: "para vocês dois",
       depois: "",
     },
-    argumentos: ["Piscina privativa", "Hidromassagem", "Lareira acesa"],
+    argumentos: [
+      "Bangalô inteiro",
+      "Piscina privativa",
+      "Hidromassagem",
+      "Lareira acesa",
+      "20 min de Areal",
+    ],
     cta: "Reservar pelo WhatsApp",
     ctaSecundario: "Ver o bangalô",
   },
   faixa: [
-    { destaque: "Só de vocês", resto: "o bangalô inteiro, sem dividir", pictograma: "bangalo" },
-    { destaque: "Piscina", resto: "privativa, de frente para a mata", pictograma: "piscina" },
-    { destaque: "Hidro", resto: "para o fim da tarde", pictograma: "hidro" },
-    { destaque: "20 min", resto: "do centro de Areal", pictograma: "estrada" },
+    { destaque: "Só de vocês", resto: "o bangalô inteiro, sem dividir", emoji: "🏡" },
+    { destaque: "Piscina", resto: "privativa, de frente para a mata", emoji: "💧" },
+    { destaque: "Hidro", resto: "para o fim da tarde", emoji: "♨️" },
+    { destaque: "20 min", resto: "do centro de Areal", emoji: "📍" },
   ],
   manifesto: {
     eyebrow: "O refúgio",
@@ -297,6 +311,7 @@ export const home: Home = homeSchema.parse({
       instagram: "Instagram do Grand Palazzo",
       whatsapp: "Conversar no WhatsApp",
     },
+    direitos: "Todos os direitos reservados",
   },
   whatsapp: {
     mensagem:
