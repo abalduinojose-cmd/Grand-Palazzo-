@@ -107,7 +107,7 @@ export function ReelsEmbla({
 
       {/* marcadores: dizem que há mais e levam até lá, sem barra à vista */}
       {marcadores.length > 1 && (
-        <div className="mt-8 flex justify-center gap-2 lg:justify-start">
+        <div className="mt-8 flex justify-center gap-2">
           {marcadores.map((m) => (
             <button
               key={m}

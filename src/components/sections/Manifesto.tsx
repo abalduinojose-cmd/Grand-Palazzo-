@@ -80,8 +80,12 @@ export function Manifesto() {
       </Container>
 
       {/* no celular a foto vem de borda a borda, fechando a seção */}
+      {/* Sem `proporcao`: a foto entra no formato do arquivo (retrato),
+          e não recortada em 16/9. Ela mostra a planta inteira do
+          bangalô, e o recorte panorâmico cortava justamente a escada
+          descendo, que é metade do argumento. */}
       <div className="reveal relative mt-14 lg:hidden">
-        <Foto foto={fotos.aereaDoBangalo} proporcao="16/9" sizes="100vw" />
+        <Foto foto={fotos.aereaDoBangalo} sizes="100vw" />
         <div
           aria-hidden="true"
           className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-marrom to-transparent"

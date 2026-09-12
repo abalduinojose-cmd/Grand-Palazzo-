@@ -168,58 +168,40 @@ body {
   }
 }
 
-/* Véus de legibilidade sobre vídeo: sombra do marrom da casa, nunca
-   cinza puro.
-   Calibrados para a dobra atual, onde o texto ocupa os dois terços de
-   baixo: o topo fica claro para a cena aérea respirar (e para o logo do
-   cabeçalho ler), adensa a partir de 38% e fecha na base. A curva de
-   antes tinha 0,14 em 40% da altura, que é justamente onde o rótulo
-   passou a cair, e ele sumia dentro da folhagem clara.
-   No desktop são duas camadas: a diagonal a 100deg escurece a coluna
-   do texto, e a vertical adensa a metade de baixo, que é onde o texto
-   mora de verdade. O canto superior direito fica no mais claro de
-   todos (0,03), porque é ali que a represa aparece.
+/* Véu da dobra.
 
-   Números conferidos no navegador, compondo quadro do vídeo + véu e
-   medindo pixel a pixel POR LINHA de texto, de dois em dois segundos
-   ao longo dos 42s inteiros do loop. O pior caso de cada um:
+   O cliente pediu para tirar o degradê do fundo, e ele tinha razão: o
+   que havia antes era uma lavagem sobre o quadro INTEIRO, em duas
+   camadas (uma diagonal e uma vertical), e o vídeo aparecia através de
+   um filtro. Aqui a sombra virou curta e vai só onde o texto mora.
 
-     desktop   rótulo 8,1:1 · título 4,5:1 · microlinha 6,3:1
-     celular   rótulo 5,1:1 · título 6,1:1 · microlinha 6,6:1
+   A curva foi desenhada em cima da GEOMETRIA do texto, medida no
+   navegador: no celular a pastilha ocupa 38 a 42% da altura, o título
+   45 a 63%, a microlinha 66 a 72% e os botões 77 a 90%. Daí: um
+   respingo no topo (0,26) para o logotipo do cabeçalho ler, quase nada
+   entre 20% e 32%, onde a cena respira limpa, e a rampa subindo a
+   partir de 44%, que é onde o título começa. Um terço do quadro fica
+   sem nada por cima.
 
-   O mínimo AA é 4,5:1 em texto pequeno e 3:1 no título (80px conta
-   como texto grande). Varredura densa importa: amostrando de 6 em 6
-   segundos o rótulo do celular aparecia com 7,5:1, e o pior caso real
-   estava no segundo 36, com 3,45:1, quando a represa clara passa
-   atrás dele. A calibragem saiu daí. */
-.veu-hero-mobile {
+   Tirar a sombra por completo não dá: medido, o texto cai para 1,0:1
+   sobre céu e água claros, ou seja, some. O rótulo resolve o dele
+   sozinho, na pastilha; o resto depende desta base.
+
+   Pior caso conferido nos 42s do loop, no celular: rótulo 11,1:1,
+   título 3,8:1 e microlinha 9,3:1. O mínimo é 4,5:1 em texto pequeno
+   e 3:1 no título, que aqui tem 48px.
+
+   A sombra é o marrom da casa puxado para o breu, nunca cinza puro. */
+.veu-dobra {
   background: linear-gradient(
     180deg,
-    rgb(23 18 11 / 0.46) 0%,
-    rgb(23 18 11 / 0.24) 15%,
-    rgb(23 18 11 / 0.58) 32%,
-    rgb(23 18 11 / 0.8) 62%,
+    rgb(23 18 11 / 0.26) 0%,
+    rgb(23 18 11 / 0.02) 20%,
+    rgb(23 18 11 / 0.06) 32%,
+    rgb(23 18 11 / 0.62) 44%,
+    rgb(23 18 11 / 0.86) 66%,
     rgb(23 18 11 / 0.92) 100%
   );
-}
-.veu-hero-desktop {
-  background:
-    linear-gradient(
-      100deg,
-      rgb(23 18 11 / 0.84) 0%,
-      rgb(23 18 11 / 0.66) 28%,
-      rgb(23 18 11 / 0.28) 56%,
-      rgb(23 18 11 / 0.05) 80%,
-      rgb(23 18 11 / 0.02) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgb(23 18 11 / 0.36) 0%,
-      rgb(23 18 11 / 0.03) 24%,
-      rgb(23 18 11 / 0.5) 54%,
-      rgb(23 18 11 / 0.68) 78%,
-      rgb(23 18 11 / 0.74) 100%
-    );
 }
 .veu-foto {
   background: linear-gradient(

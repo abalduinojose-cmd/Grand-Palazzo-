@@ -27,14 +27,20 @@ const textoSchema = z.object({
   essencia: z.string().min(1),
 });
 
-/** Foto de cada ambiente, do catálogo em src/assets/fotos. */
+/** Foto de cada ambiente, do catálogo em src/assets/fotos.
+ *
+ *  Três subiram para o lote novo (12/09), que é material melhor: a
+ *  piscina com os cactos tem quatro vezes a resolução da anterior e
+ *  mostra a represa atrás; o jardim à noite pega o deck aceso, que é
+ *  exatamente o que a frase do ambiente promete; e a mesa ao anoitecer
+ *  vende o café muito melhor que a mesa de pão em dia claro. */
 const FOTO: Record<AmbienteSlug, Foto> = {
-  piscina: fotos.piscinaComVista,
+  piscina: fotos.piscinaComCactos,
   hidro: fotos.hidroComFrios,
   lareira: fotos.lareiraComVinho,
   suite: fotos.camaRomantica,
-  deck: fotos.deckSuspenso,
-  cafe: fotos.cafeNoJardim,
+  deck: fotos.jardimANoite,
+  cafe: fotos.mesaAoAnoitecer,
 };
 
 export type Ambiente = z.infer<typeof textoSchema> & { foto: Foto };

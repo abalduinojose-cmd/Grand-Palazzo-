@@ -58,38 +58,52 @@ export function Hero() {
         </div>
       </div>
 
-      {/* véu: vertical no celular, diagonal no desktop */}
-      <div aria-hidden className="veu-hero-mobile absolute inset-0 -z-10 md:hidden" />
-      <div
-        aria-hidden
-        className="veu-hero-desktop absolute inset-0 -z-10 hidden md:block"
-      />
-      <div aria-hidden className="luz-alta absolute inset-x-0 top-0 -z-10 h-1/3" />
+      {/* sombra curta, só onde o texto mora (ver .veu-dobra) */}
+      <div aria-hidden className="veu-dobra absolute inset-0 -z-10" />
       {/* cortina de abertura: escurece e sai */}
       <div aria-hidden className="dobra-clarear absolute inset-0 -z-10 bg-noite" />
 
       <Container className="entrada relative pb-20 pt-40 sm:pb-24">
-        {/* o texto vai de creme (medido: bege sobre esta cena dá 2,5:1);
-            o bege fica no fio, que é grafismo e não precisa ser lido */}
-        <p className="flex items-center gap-3 font-sans text-[0.6875rem] font-extrabold uppercase tracking-[0.28em] text-creme">
-          <span aria-hidden className="h-px w-8 bg-bege" />
-          {site.localizacao}
+        {/* Pastilha de vidro em vez de texto solto sobre a cena.
+            Resolve duas coisas de uma vez: dá ao rótulo o registro de
+            etiqueta, que é o que se usa hoje, e carrega o próprio
+            fundo, então ele não depende do véu para ser lido (o véu
+            agora é curto e nem chega aqui em cima).
+
+            85% de opacidade, e não os 35% de uma pastilha de vidro
+            comum: medido, sobre céu claro os 35% davam 1,7:1. Com a
+            borda e o desfoque ela continua lendo como vidro, e a área
+            é pequena, então não esconde a cena. */}
+        <p className="inline-flex items-center gap-2.5 rounded-full border border-creme/25 bg-noite/35 py-2 pl-3.5 pr-4 backdrop-blur-md">
+          <span aria-hidden className="size-1.5 rounded-full bg-bege" />
+          <span className="font-sans text-[0.6875rem] font-extrabold uppercase tracking-[0.28em] text-creme">
+            {site.localizacao}
+          </span>
         </p>
 
-        {/* A dobra cheia dá mais largura que a versão em duas colunas,
-            então o título sobe de escala. O balance distribui as linhas
-            e evita a última palavra sozinha.
+        {/* O título subiu de escala e a segunda metade vai em itálico,
+            que é o mesmo destaque usado nos títulos de seção: amarra a
+            dobra ao resto do site e dá dois registros numa frase só.
 
-            Peso 400 aqui, e não o 300 das outras seções: sobre folhagem
-            em movimento a haste fina se desfaz, e isso a medição de
-            contraste não pega, porque ela mede cor e não espessura. Nas
-            seções claras o 300 continua, que é onde ele é elegante. */}
-        <h1 className="mt-6 max-w-[46rem] font-display text-[clamp(2.75rem,6.2vw,5rem)] font-normal leading-[1.02] tracking-[-0.034em] text-balance text-creme">
-          {titulo.antes} {titulo.enfase}
+            O destaque NÃO é por cor de acento: bege sobre esta cena foi
+            medido em 1,0:1, ou seja, some. Aqui o contraste é de brilho
+            dentro do mesmo creme, a primeira metade a 75% e a segunda
+            cheia, mais o itálico. Passa e continua sendo destaque.
+
+            Peso 400, e não o 300 das seções claras: sobre folhagem em
+            movimento a haste fina se desfaz, e isso a medição de
+            contraste não pega, porque ela mede cor e não espessura. */}
+        <h1 className="mt-7 max-w-[19ch] font-display text-[clamp(3rem,6.8vw,5.5rem)] font-normal leading-[0.98] tracking-[-0.04em] text-balance text-creme/80">
+          {titulo.antes}{" "}
+          <em className="italic text-creme">{titulo.enfase}</em>
           {titulo.depois}
         </h1>
 
-        <p className="mt-6 max-w-md font-sans text-[1.0625rem] font-light leading-relaxed text-creme/80">
+        {/* A microlinha era 17px em peso leve e sumia. Subiu de corpo e
+            de peso, e ganhou um fio na frente: vira uma linha de
+            legenda, com começo marcado, em vez de frase solta. */}
+        <p className="mt-7 flex max-w-lg items-start gap-4 font-sans text-[1.125rem] leading-snug text-creme/90">
+          <span aria-hidden className="mt-3.5 h-px w-8 shrink-0 bg-bege" />
           {microlinha}
         </p>
 
