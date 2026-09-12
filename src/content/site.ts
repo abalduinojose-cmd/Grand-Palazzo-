@@ -168,7 +168,6 @@ export const homeSchema = z.object({
       whatsapp: z.string().min(1),
     }),
     mapaLink: z.string().min(1),
-    aviso: z.string().min(1),
   }),
   whatsapp: z.object({
     mensagem: z.string().min(1),
@@ -294,7 +293,6 @@ export const home: Home = homeSchema.parse({
       whatsapp: "Conversar no WhatsApp",
     },
     mapaLink: "Abrir no Google Maps",
-    aviso: "Fotos do próprio bangalô e de hóspedes.",
   },
   whatsapp: {
     mensagem:

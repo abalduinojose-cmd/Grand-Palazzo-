@@ -1,20 +1,21 @@
 import type { CSSProperties } from "react";
 import { Container } from "@/components/ui/Container";
-import { Pictograma } from "@/components/ui/Pictograma";
 import { home } from "@/content/site";
 import { cx } from "@/lib/utils";
 
 /**
  * Faixa de contexto: quatro fatos numa grade de fios, sem caixa.
  *
- * No celular é 2x2, não lista empilhada: quatro linhas de altura igual
- * uma embaixo da outra é o desenho mais genérico que existe em mobile,
- * e ocupava o dobro da rolagem. Do desktop para cima abre em quatro
- * colunas na mesma grade.
+ * Os pictogramas de traço saíram. Eram a única coisa ilustrada da
+ * página e puxavam a seção para o registro de "lista de vantagens com
+ * iconzinho", que é o mais batido que existe. No lugar entrou o próprio
+ * número, grande e em bege, no canto de cada célula: ele ancora o olho
+ * do mesmo jeito que o ícone ancorava, e é tipografia, que é a
+ * linguagem do resto do site.
  *
- * Cada célula é índice + pictograma na linha de cima, o fato em corpo
- * grande e a frase curta embaixo. O número dá leitura de ficha técnica,
- * que é o registro certo para dado objetivo.
+ * 2x2 no celular e quatro colunas no desktop. Quatro linhas empilhadas
+ * de altura igual é o desenho mais genérico que existe em mobile, e
+ * ocupava o dobro da rolagem.
  *
  * O topo derrete o fim do vídeo do hero no creme com um gradiente, para
  * a passagem de seção não ser corte seco.
@@ -45,26 +46,27 @@ export function FaixaContexto() {
               key={item.resto}
               style={{ "--reveal-atraso": `${i * 5}%` } as CSSProperties}
               className={cx(
-                "reveal border-b border-(--fio) py-6 pr-5 sm:py-8",
+                "reveal border-b border-(--fio) py-7 pr-5 sm:py-9",
                 FIO_DIREITA[i],
                 RECUO_ESQUERDA[i],
               )}
             >
-              <div className="flex items-center justify-between gap-3">
-                <span className="font-sans text-[0.625rem] font-extrabold tracking-[0.24em] text-bege tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <Pictograma
-                  nome={item.pictograma}
-                  className="traco-anima size-6 shrink-0 text-dourado sm:size-7"
-                />
-              </div>
+              {/* O número no lugar do ícone: mesma âncora, sem desenho.
+                  Fica no fluxo, e não posicionado por cima: em célula
+                  estreita de celular o valor quebra em duas linhas e
+                  passava por baixo dele. */}
+              <p
+                aria-hidden="true"
+                className="text-right font-display text-[2.5rem] font-light leading-[0.8] tracking-[-0.04em] text-bege/40 tabular-nums sm:text-[3.25rem]"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </p>
 
               <dt className="sr-only">{item.resto}</dt>
-              <dd className="mt-6 font-display text-[clamp(1.5rem,5.2vw,2.5rem)] font-light leading-[1.05] tracking-[-0.03em] text-cafe">
+              <dd className="mt-7 font-display text-[clamp(1.5rem,5.2vw,2.5rem)] font-light leading-[1.05] tracking-[-0.03em] text-cafe sm:mt-9">
                 {item.destaque}
               </dd>
-              <dd className="mt-2.5 font-sans text-legenda text-(--fg-suave)">
+              <dd className="mt-3 max-w-[22ch] font-sans text-legenda text-(--fg-suave)">
                 {item.resto}
               </dd>
             </div>

@@ -2,22 +2,24 @@ import { Container } from "@/components/ui/Container";
 import { IconeMarca } from "@/components/ui/IconeMarca";
 import { Section } from "@/components/ui/Section";
 import { home, site } from "@/content/site";
+import { cx } from "@/lib/utils";
 import { VideoReel } from "./interactive/VideoReel";
 
 /**
  * O perfil do cliente dentro do site.
  *
- * Layout de duas colunas: à esquerda a coluna editorial, que gruda no
- * scroll enquanto os vídeos passam; à direita um trilho horizontal.
+ * Sem trilho e sem arrastar: os três vídeos cabem na tela. O trilho
+ * horizontal deixava uma barra de rolagem embaixo dos cartões no
+ * desktop e escondia parte do conteúdo atrás de um gesto, o que é
+ * cobrar um esforço para ver três vídeos que cabem à vista.
  *
- * A largura dos cartões é fixa em rem de propósito, e soma mais que a
- * coluna que os abriga: o terceiro sempre fica cortado na borda, e é
- * esse corte (mais a máscara que dissolve o fim do trilho) que avisa
- * que dá para arrastar. Fica melhor do que seta ou texto "arraste",
- * porque não precisa ser lido.
+ * No celular a grade é 2x2 com o primeiro em largura cheia: assim o
+ * mais forte abre grande e os outros dois entram lado a lado, sem
+ * empilhar três vídeos de tela inteira um embaixo do outro. No desktop
+ * são três colunas iguais.
  *
- * Cada cartão leva número e legenda curta embaixo, no lugar de flutuar
- * solto: dá a leitura de índice de conteúdo, não de grade de imagens.
+ * Cada cartão leva número e legenda curta embaixo, o que dá a leitura
+ * de índice de conteúdo, não de grade de imagens.
  */
 export function Reels() {
   const copy = home.reels;
@@ -27,66 +29,81 @@ export function Reels() {
       <div className="luz-alta absolute inset-0" aria-hidden="true" />
 
       <Container className="relative">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-14">
-          <header className="lg:sticky lg:top-28 lg:self-start">
+        <header className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+          <div className="max-w-xl">
             <p className="font-sans text-[0.6875rem] font-extrabold uppercase tracking-[0.28em] text-creme">
               {copy.eyebrow}
             </p>
             <h2 className="mt-5 font-display text-balance text-[clamp(2rem,4.8vw,3.4rem)] font-light leading-[1.06] tracking-[-0.028em] text-creme">
-              {copy.titulo.antes} <em className="italic text-bege">{copy.titulo.enfase}</em>
+              {copy.titulo.antes}{" "}
+              <em className="italic text-bege">{copy.titulo.enfase}</em>
               {copy.titulo.depois}
             </h2>
             <p className="mt-5 font-sans text-corpo font-light text-creme/70">
               {copy.texto}
             </p>
+          </div>
 
-            {/* o arroba como assinatura, não como link no meio do texto */}
-            <a
-              href={site.instagram.url}
-              target="_blank"
-              rel="noopener"
-              className="group mt-8 inline-flex items-center gap-3 rounded-full border border-creme/25 px-5 py-3 transition-colors duration-300 ease-suave hover:border-bege"
+          {/* o arroba como assinatura, não como link no meio do texto */}
+          <a
+            href={site.instagram.url}
+            target="_blank"
+            rel="noopener"
+            className="group inline-flex items-center gap-3 self-start rounded-full border border-creme/25 px-5 py-3 transition-colors duration-300 ease-suave hover:border-bege lg:self-auto"
+          >
+            <IconeMarca
+              marca="instagram"
+              className="size-5 text-creme transition-colors duration-300 ease-suave group-hover:text-bege"
+            />
+            <span className="font-sans text-[0.9375rem] font-medium tracking-[-0.01em] text-creme">
+              {site.instagram.handle}
+            </span>
+          </a>
+        </header>
+
+        <ul className="mt-12 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-4 lg:grid-cols-3 lg:gap-6">
+          {copy.videos.map((video, i) => (
+            <li
+              key={video.src}
+              className={cx(i === 0 && "col-span-2 lg:col-span-1")}
             >
-              <IconeMarca
-                marca="instagram"
-                className="size-5 text-creme transition-colors duration-300 ease-suave group-hover:text-bege"
-              />
-              <span className="font-sans text-[0.9375rem] font-medium tracking-[-0.01em] text-creme">
-                {site.instagram.handle}
-              </span>
-            </a>
-          </header>
-
-          <ul className="trilho-fade -mx-5 flex snap-x snap-proximity gap-4 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8 lg:mx-0 lg:gap-5 lg:px-0">
-            {copy.videos.map((video, i) => (
-              <li
-                key={video.src}
-                className="w-[72vw] flex-none snap-start sm:w-[44vw] lg:w-[19rem]"
-              >
-                <div className="overflow-hidden rounded-[1.75rem] ring-1 ring-creme/15">
-                  <VideoReel
-                    src={video.src}
-                    poster={video.poster}
-                    rotulo={video.rotulo}
-                    reproduzir={copy.reproduzir}
-                    pausar={copy.pausar}
-                    somAtivar={copy.somAtivar}
-                    somDesativar={copy.somDesativar}
-                  />
-                </div>
-                <p className="mt-4 flex items-baseline gap-3">
-                  <span className="font-sans text-[0.625rem] font-extrabold tracking-[0.24em] text-bege tabular-nums">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="font-sans text-legenda text-creme/70">
-                    {video.titulo}
-                  </span>
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
+              <div className="overflow-hidden rounded-[1.5rem] ring-1 ring-creme/15 sm:rounded-[1.75rem]">
+                <VideoReelDoTrilho video={video} copy={copy} />
+              </div>
+              <p className="mt-3 flex items-baseline gap-3 sm:mt-4">
+                <span className="font-sans text-[0.625rem] font-extrabold tracking-[0.24em] text-bege tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-sans text-legenda text-creme/70">
+                  {video.titulo}
+                </span>
+              </p>
+            </li>
+          ))}
+        </ul>
       </Container>
     </Section>
   );
 }
+
+/* Extraído só para a lista acima não virar um bloco de dez props. */
+function VideoReelDoTrilho({
+  video,
+  copy,
+}: {
+  video: (typeof home.reels.videos)[number];
+  copy: typeof home.reels;
+}) {
+  return (
+    <VideoReel
+      src={video.src}
+      poster={video.poster}
+      rotulo={video.rotulo}
+      reproduzir={copy.reproduzir}
+      pausar={copy.pausar}
+      somAtivar={copy.somAtivar}
+      somDesativar={copy.somDesativar}
+    />
+  );
+}
+

@@ -46,6 +46,12 @@ function comEnfase(texto: string, destaques: string[]): ReactNode[] {
  * eram `hidden lg:block`, ou seja, metade da força da seção só existia
  * no desktop; agora entra uma faixa de foto de borda a borda embaixo
  * do texto.
+ *
+ * A foto é o deck suspenso, e não a hidro: o texto ao lado fala de um
+ * terreno que desce até a água, e o deck sobre o declive é a imagem
+ * que prova isso. A hidro ficou exclusiva do CTA final, onde ela vende
+ * a experiência; usá-la aqui também repetia a mesma foto três vezes na
+ * mesma página.
  */
 export function Manifesto() {
   return (
@@ -54,7 +60,7 @@ export function Manifesto() {
 
       {/* coluna de foto colada na borda da tela, só do desktop para cima */}
       <div className="absolute inset-y-0 right-0 hidden w-[38%] max-w-[32rem] lg:block">
-        <Foto foto={fotos.hidroComFrios} preencher sizes="38vw" />
+        <Foto foto={fotos.deckSuspenso} preencher sizes="38vw" />
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-r from-marrom via-marrom/45 to-marrom/5"
@@ -76,7 +82,7 @@ export function Manifesto() {
 
       {/* no celular a foto vem de borda a borda, fechando a seção */}
       <div className="reveal relative mt-14 lg:hidden">
-        <Foto foto={fotos.hidroComFrios} proporcao="16/9" sizes="100vw" />
+        <Foto foto={fotos.deckSuspenso} proporcao="16/9" sizes="100vw" />
         <div
           aria-hidden="true"
           className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-marrom to-transparent"
