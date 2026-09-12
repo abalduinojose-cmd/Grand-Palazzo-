@@ -22,7 +22,7 @@ export function Localizacao() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] leading-[1.1]">
+            <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.08] tracking-[-0.028em]">
               {titulo.antes}{" "}
               <em className="italic text-cafe">{titulo.enfase}</em>
               {titulo.depois}

@@ -1,39 +1,31 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Instrument_Sans } from "next/font/google";
+import { Host_Grotesk } from "next/font/google";
 import { site, SITE_URL } from "@/content/site";
 import "./globals.css";
 
 /*
-  Bodoni Moda no display. Bodoni era italiano e o nome da casa é
-  italiano, mas a escolha não é só simbólica: a Prata que estava aqui
-  tem UM peso só e nenhum itálico, então o display não tinha segundo
-  registro nenhum. A Bodoni Moda é variável em três eixos e resolve os
-  dois problemas de uma vez:
+  Uma família só no site inteiro: Host Grotesk, grotesca contemporânea
+  com peso variável de 300 a 800 e itálico de verdade.
 
-  - `opsz` (6 a 96) é o que mais muda o site. A serifa de alto contraste
-    fica com fio finíssimo no título de 80px, que é onde ela é elegante,
-    e engrossa sozinha nos 20px do nome de ambiente, que é onde a Prata
-    sumia sobre fundo escuro. Uma família cobrindo os dois extremos.
-  - itálico de verdade, que virou o destaque dos títulos de seção (antes
-    era um <em> com not-italic e troca de cor, um meio-destaque).
+  Por que trocar de novo, e por que uma só: o cliente pediu fonte
+  moderna, e as duas anteriores (Prata e Bodoni Moda) eram serifas
+  romanas de alto contraste, ou seja, o registro clássico. Aqui a
+  hierarquia deixa de ser "serifa no título, sem serifa no texto" e
+  passa a ser peso, tamanho e espacejamento:
 
-  Instrument Sans no corpo: grotesca contemporânea, um tiquinho estreita,
-  com itálico e peso variável. Entrou no lugar da Manrope, que é redonda
-  e geométrica e brigava com a serifa em vez de contrastar com ela.
-  Grotesca + didone é a dupla de revista, que é o registro do site.
+    300 + entrelinha curta + tracking negativo  -> título grande
+    400                                          -> corpo
+    700/800 + tracking 0,28em em caixa alta      -> rótulo de seção
+    itálico                                      -> destaque no título
+
+  Peso leve em tamanho grande lê editorial, não tecnológico, que é o
+  risco de usar grotesca em hospedagem. E a única serifa que sobra na
+  página passa a ser o logotipo, que vira acento em vez de concorrente.
 
   Zero requisição a fonts.googleapis.com em runtime (next/font self-host).
 */
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
-  subsets: ["latin"],
-  display: "swap",
-  axes: ["opsz"],
-  style: ["normal", "italic"],
-});
-
-const instrument = Instrument_Sans({
-  variable: "--font-instrument",
+const host = Host_Grotesk({
+  variable: "--font-host",
   subsets: ["latin", "latin-ext"],
   display: "swap",
   style: ["normal", "italic"],
@@ -60,7 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${bodoni.variable} ${instrument.variable} h-full antialiased`}
+      className={`${host.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

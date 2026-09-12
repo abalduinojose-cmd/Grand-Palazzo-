@@ -78,13 +78,11 @@ export function Hero() {
             então o título sobe de escala. O balance distribui as linhas
             e evita a última palavra sozinha.
 
-            O opsz travado em 34 é de propósito: por padrão ele segue o
-            tamanho da letra, e em 80px a Bodoni entrega o fio mais fino
-            que tem. Isso é bonito sobre papel creme e frágil sobre
-            folhagem em movimento. Fixando o corte de texto, a letra
-            continua com 80px mas com haste de 34, que aguenta o fundo.
-            O tamanho grande já dá a elegância; o fio não precisa. */}
-        <h1 className="mt-6 max-w-[46rem] font-display text-[clamp(2.75rem,6.2vw,5rem)] leading-[1.03] tracking-[-0.01em] text-balance text-creme [font-optical-sizing:none] [font-variation-settings:'opsz'_34]">
+            Peso 400 aqui, e não o 300 das outras seções: sobre folhagem
+            em movimento a haste fina se desfaz, e isso a medição de
+            contraste não pega, porque ela mede cor e não espessura. Nas
+            seções claras o 300 continua, que é onde ele é elegante. */}
+        <h1 className="mt-6 max-w-[46rem] font-display text-[clamp(2.75rem,6.2vw,5rem)] font-normal leading-[1.02] tracking-[-0.034em] text-balance text-creme">
           {titulo.antes} {titulo.enfase}
           {titulo.depois}
         </h1>

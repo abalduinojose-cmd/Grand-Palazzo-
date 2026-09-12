@@ -135,6 +135,9 @@ export const homeSchema = z.object({
         z.object({
           src: z.string().startsWith("/videos/"),
           poster: z.string().startsWith("/videos/"),
+          /* Legenda curta sob o cartão, 2 ou 3 palavras. */
+          titulo: z.string().min(1).max(24),
+          /* Descrição para leitor de tela, mais longa que o título. */
           rotulo: z.string().min(1),
         }),
       )
@@ -243,16 +246,19 @@ export const home: Home = homeSchema.parse({
       {
         src: "/videos/reel-tour.mp4",
         poster: "/videos/reel-tour.jpg",
+        titulo: "O tour completo",
         rotulo: "Tour completo pelo bangalô, do jardim à suíte",
       },
       {
         src: "/videos/reel-noite.mp4",
         poster: "/videos/reel-noite.jpg",
+        titulo: "Deck ao anoitecer",
         rotulo: "O deck e a fogueira acesos ao anoitecer",
       },
       {
         src: "/videos/reel-como-chegar.mp4",
         poster: "/videos/reel-como-chegar.jpg",
+        titulo: "A chegada, do alto",
         rotulo: "Vista aérea do bangalô e do caminho até ele",
       },
     ],

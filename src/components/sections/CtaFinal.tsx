@@ -11,8 +11,12 @@ import { whatsappUrl } from "@/lib/utils";
 /**
  * O fim do scroll é a noite: o creme desce em gradiente até o marrom
  * escuro, o frontão da marca fecha a transição e a decisão acontece
- * diante da foto do deck aceso. As luzes aqui são reais, da própria
- * foto, em vez de simuladas.
+ * diante da hidromassagem posta.
+ *
+ * A foto aqui era a do deck à noite, que é a mais escura do acervo e
+ * some no fundo escuro da seção. Esta tem a luz da própria hidro, a
+ * tábua de frios e o vinho, ou seja, mostra a experiência que o botão
+ * ao lado está vendendo.
  */
 export function CtaFinal() {
   const { eyebrow, titulo, texto, linhaNoite, whatsappRotulo, instagramRotulo } =
@@ -64,7 +68,7 @@ export function CtaFinal() {
             </div>
 
             <Foto
-              foto={fotos.deckANoite}
+              foto={fotos.hidroComFrios}
               proporcao="3/2"
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="reveal rounded-3xl"

@@ -44,7 +44,7 @@ export function Manifesto() {
         <div className="grid gap-12 lg:grid-cols-[7fr_4fr] lg:items-center lg:gap-20">
           <div>
             <Eyebrow>{home.manifesto.eyebrow}</Eyebrow>
-            <p className="reveal mt-6 font-display text-[clamp(1.7rem,3.6vw,2.9rem)] leading-[1.25]">
+            <p className="reveal mt-6 font-display text-[clamp(1.7rem,3.6vw,2.9rem)] font-light leading-[1.22] tracking-[-0.02em]">
               {comEnfase(site.manifesto, home.manifesto.destaques)}
             </p>
             <div className="mt-10 flex items-center gap-4">

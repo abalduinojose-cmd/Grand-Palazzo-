@@ -31,7 +31,7 @@ export function PorDentro() {
       <Container>
         <header className="max-w-xl">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] leading-[1.1]">
+          <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.08] tracking-[-0.028em]">
             {titulo.antes} <em className="italic text-cafe">{titulo.enfase}</em>
             {titulo.depois}
           </h2>

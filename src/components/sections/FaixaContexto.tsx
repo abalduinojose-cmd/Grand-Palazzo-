@@ -41,7 +41,7 @@ export function FaixaContexto() {
               <dt className="sr-only">{item.resto}</dt>
               {/* 5.75rem é a medida justa do maior número ("15 min" dá
                   87px): as frases nascem na mesma coluna sem vão sobrando */}
-              <dd className="min-w-[5.75rem] font-display text-[1.75rem] leading-none text-cafe tabular-nums lg:mt-6 lg:min-w-0 lg:text-[clamp(2rem,3vw,2.75rem)]">
+              <dd className="min-w-[5.75rem] font-display text-[1.75rem] font-medium leading-none tracking-[-0.02em] text-cafe tabular-nums lg:mt-6 lg:min-w-0 lg:text-[clamp(2rem,3vw,2.75rem)]">
                 {item.destaque}
               </dd>
               <span
