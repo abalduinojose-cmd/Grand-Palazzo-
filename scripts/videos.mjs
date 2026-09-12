@@ -24,9 +24,9 @@
  *   - hero-desktop.mp4  faixa horizontal, ampliada com lanczos
  *   - hero-mobile.mp4   vertical no tamanho nativo, sem ampliar
  *
- * A faixa horizontal sai de y=300: acima disso o quadro é só vale e
- * céu, abaixo é só grama. Em 300 entram os telhados, a piscina e a
- * represa na mesma linha.
+ * A faixa horizontal sai de y=210 e tem 468 de altura, escolhida
+ * comparando três enquadramentos ao longo do vídeo inteiro. Detalhe
+ * abaixo, na constante.
  *
  *   node scripts/videos.mjs
  */
@@ -48,8 +48,19 @@ const CORTE = { de: 36.9, ate: 41.2 };
 const FIM = 47.18;
 /** Dissolve da emenda, em segundos. */
 const EMENDA = 0.5;
-/** Topo da faixa horizontal, em pixels do quadro de 1280 de altura. */
-const FAIXA_Y = 300;
+/* Faixa horizontal: onde recortar do quadro de 720x1280.
+
+   Subiu de y=300/h=405 para y=210/h=468 a pedido do cliente ("suba o
+   ângulo pra pegar mais o vídeo"). Comparei três enquadramentos ao
+   longo dos 42s antes de trocar: em 210 entram o ipê roxo, o telhado e
+   o vale na mesma linha, que é a melhor composição da abertura. Descer
+   mais (y=150) melhora a aérea mas nas tomadas de dentro sobra teto
+   vazio, e o tour tem várias.
+
+   O limite de baixo é a legenda queimada, que começa em 78,4% da
+   altura (y=1003): 210+468 = 678, com folga. */
+const FAIXA_Y = 210;
+const FAIXA_H = 468;
 
 /* Taxa de quadros: a original é 30, e 24 corta um quinto dos bytes sem
    que ninguém perceba em movimento de drone. Abaixo disso trepida. */
@@ -85,7 +96,7 @@ const SAIDAS = [
        para 1280: num vídeo de 42s isso quase dobra o arquivo e o ganho
        desaparece atrás do véu. */
     filtro: filtro(
-      `crop=720:405:0:${FAIXA_Y},fps=${FPS},scale=960:540:flags=lanczos,unsharp=5:5:0.5:5:5:0,setsar=1,format=yuv420p`,
+      `crop=720:${FAIXA_H}:0:${FAIXA_Y},fps=${FPS},scale=960:624:flags=lanczos,unsharp=5:5:0.5:5:5:0,setsar=1,format=yuv420p`,
     ),
     crf: 33,
   },

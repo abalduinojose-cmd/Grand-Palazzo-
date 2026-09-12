@@ -33,42 +33,55 @@ function comEnfase(texto: string, destaques: string[]): ReactNode[] {
  * editorial, com duas fotos que o texto cita empilhadas à direita no
  * desktop. O frontão da marca fecha a assinatura.
  */
+/**
+ * Primeira pausa escura: o manifesto do cliente como peça editorial.
+ *
+ * A foto era um par de cartões girados um sobre o outro, que é um
+ * desenho de álbum de recorte e envelheceu. Virou uma coluna inteira
+ * colada na borda direita da tela, sem giro e sem canto arredondado
+ * flutuando: quem dissolve a emenda é o gradiente do marrom por cima
+ * dela, não uma moldura.
+ *
+ * E no celular a seção deixou de ser só texto. Antes as duas fotos
+ * eram `hidden lg:block`, ou seja, metade da força da seção só existia
+ * no desktop; agora entra uma faixa de foto de borda a borda embaixo
+ * do texto.
+ */
 export function Manifesto() {
   return (
-    <Section theme="marrom" className="py-24 sm:py-32">
-      <Frontao
-        className="pointer-events-none absolute -right-10 -top-10 w-72 text-bege opacity-[0.07] sm:w-96"
-      />
+    <Section theme="marrom" className="pt-24 sm:pt-32 lg:pb-32">
+      <Frontao className="pointer-events-none absolute -right-10 -top-10 w-72 text-bege opacity-[0.07] sm:w-96" />
+
+      {/* coluna de foto colada na borda da tela, só do desktop para cima */}
+      <div className="absolute inset-y-0 right-0 hidden w-[38%] max-w-[32rem] lg:block">
+        <Foto foto={fotos.hidroComFrios} preencher sizes="38vw" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-marrom via-marrom/45 to-marrom/5"
+        />
+      </div>
 
       <Container className="relative">
-        <div className="grid gap-12 lg:grid-cols-[7fr_4fr] lg:items-center lg:gap-20">
-          <div>
-            <Eyebrow>{home.manifesto.eyebrow}</Eyebrow>
-            <p className="reveal mt-6 font-display text-[clamp(1.7rem,3.6vw,2.9rem)] font-light leading-[1.22] tracking-[-0.02em]">
-              {comEnfase(site.manifesto, home.manifesto.destaques)}
-            </p>
-            <div className="mt-10 flex items-center gap-4">
-              <span aria-hidden="true" className="h-px w-14 bg-bege/70" />
-              <Eyebrow className="mt-0">{home.manifesto.assinatura}</Eyebrow>
-            </div>
-          </div>
-
-          <div className="reveal relative hidden justify-self-end pb-12 pr-10 lg:block">
-            <Foto
-              foto={fotos.hidroComFrios}
-              proporcao="4/5"
-              sizes="288px"
-              className="w-72 rotate-2 rounded-3xl"
-            />
-            <Foto
-              foto={fotos.piscinaBambuzal}
-              proporcao="1/1"
-              sizes="192px"
-              className="absolute -left-16 bottom-0 w-48 -rotate-3 rounded-2xl border-4 border-marrom"
-            />
+        <div className="lg:max-w-[58%]">
+          <Eyebrow>{home.manifesto.eyebrow}</Eyebrow>
+          <p className="reveal mt-6 font-display text-[clamp(1.75rem,3.6vw,2.9rem)] font-light leading-[1.2] tracking-[-0.025em]">
+            {comEnfase(site.manifesto, home.manifesto.destaques)}
+          </p>
+          <div className="mt-10 flex items-center gap-4">
+            <span aria-hidden="true" className="h-px w-14 bg-bege/70" />
+            <Eyebrow className="mt-0">{home.manifesto.assinatura}</Eyebrow>
           </div>
         </div>
       </Container>
+
+      {/* no celular a foto vem de borda a borda, fechando a seção */}
+      <div className="reveal relative mt-14 lg:hidden">
+        <Foto foto={fotos.hidroComFrios} proporcao="16/9" sizes="100vw" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-marrom to-transparent"
+        />
+      </div>
     </Section>
   );
 }

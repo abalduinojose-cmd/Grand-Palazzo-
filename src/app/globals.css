@@ -184,7 +184,7 @@ body {
    medindo pixel a pixel POR LINHA de texto, de dois em dois segundos
    ao longo dos 42s inteiros do loop. O pior caso de cada um:
 
-     desktop   rótulo 7,4:1 · título 5,0:1 · microlinha 6,3:1
+     desktop   rótulo 8,1:1 · título 4,5:1 · microlinha 6,3:1
      celular   rótulo 5,1:1 · título 6,1:1 · microlinha 6,6:1
 
    O mínimo AA é 4,5:1 em texto pequeno e 3:1 no título (80px conta

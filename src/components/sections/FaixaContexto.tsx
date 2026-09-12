@@ -2,53 +2,69 @@ import type { CSSProperties } from "react";
 import { Container } from "@/components/ui/Container";
 import { Pictograma } from "@/components/ui/Pictograma";
 import { home } from "@/content/site";
+import { cx } from "@/lib/utils";
 
 /**
- * Faixa de contexto: quatro fatos sem caixa, o ar é que separa.
+ * Faixa de contexto: quatro fatos numa grade de fios, sem caixa.
  *
- * No celular vira lista em linhas curtas (pictograma · número · frase)
- * com fio entre elas, que ocupa metade da altura de uma grade 2x2. No
- * desktop abre em quatro colunas.
+ * No celular é 2x2, não lista empilhada: quatro linhas de altura igual
+ * uma embaixo da outra é o desenho mais genérico que existe em mobile,
+ * e ocupava o dobro da rolagem. Do desktop para cima abre em quatro
+ * colunas na mesma grade.
  *
- * O topo derrete o fim do vídeo do hero no branco com um gradiente de
- * 5rem, então a passagem de seção deixa de ser corte seco. Não há
- * hover: a faixa informa e não é clicável.
+ * Cada célula é índice + pictograma na linha de cima, o fato em corpo
+ * grande e a frase curta embaixo. O número dá leitura de ficha técnica,
+ * que é o registro certo para dado objetivo.
+ *
+ * O topo derrete o fim do vídeo do hero no creme com um gradiente, para
+ * a passagem de seção não ser corte seco.
  */
+
+/* Fios da grade. Na borda direita de cada linha não entra fio vertical,
+   e a linha muda entre celular (2 colunas) e desktop (4). */
+const FIO_DIREITA = ["border-r", "lg:border-r", "border-r", ""] as const;
+/* Respiro interno: só quem não encosta na borda esquerda da linha. */
+const RECUO_ESQUERDA = ["", "pl-5", "lg:pl-5", "pl-5"] as const;
+
 export function FaixaContexto() {
   return (
     <section
       data-theme="claro"
-      className="relative bg-(--bg) py-10 text-(--fg) sm:py-14"
+      className="relative bg-(--bg) py-12 text-(--fg) sm:py-16"
     >
-      {/* costura com o hero: o branco sobe por cima do vídeo */}
+      {/* costura com o hero: o creme sobe por cima do vídeo */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -top-20 h-20 bg-gradient-to-t from-creme to-transparent"
       />
 
       <Container className="relative">
-        <dl className="divide-y divide-(--fio) lg:grid lg:grid-cols-4 lg:gap-x-12 lg:divide-y-0">
+        <dl className="grid grid-cols-2 border-t border-(--fio) lg:grid-cols-4">
           {home.faixa.map((item, i) => (
             <div
               key={item.resto}
               style={{ "--reveal-atraso": `${i * 5}%` } as CSSProperties}
-              className="reveal flex items-center gap-4 py-4 lg:block lg:py-0"
+              className={cx(
+                "reveal border-b border-(--fio) py-6 pr-5 sm:py-8",
+                FIO_DIREITA[i],
+                RECUO_ESQUERDA[i],
+              )}
             >
-              <Pictograma
-                nome={item.pictograma}
-                className="traco-anima size-6 shrink-0 text-dourado lg:size-8"
-              />
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-sans text-[0.625rem] font-extrabold tracking-[0.24em] text-bege tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <Pictograma
+                  nome={item.pictograma}
+                  className="traco-anima size-6 shrink-0 text-dourado sm:size-7"
+                />
+              </div>
+
               <dt className="sr-only">{item.resto}</dt>
-              {/* 5.75rem é a medida justa do maior número ("15 min" dá
-                  87px): as frases nascem na mesma coluna sem vão sobrando */}
-              <dd className="min-w-[5.75rem] font-display text-[1.75rem] font-medium leading-none tracking-[-0.02em] text-cafe tabular-nums lg:mt-6 lg:min-w-0 lg:text-[clamp(2rem,3vw,2.75rem)]">
+              <dd className="mt-6 font-display text-[clamp(1.5rem,5.2vw,2.5rem)] font-light leading-[1.05] tracking-[-0.03em] text-cafe">
                 {item.destaque}
               </dd>
-              <span
-                aria-hidden="true"
-                className="hidden h-px w-8 bg-marrom/25 lg:mt-5 lg:block"
-              />
-              <dd className="font-sans text-legenda text-(--fg-suave) lg:mt-4">
+              <dd className="mt-2.5 font-sans text-legenda text-(--fg-suave)">
                 {item.resto}
               </dd>
             </div>

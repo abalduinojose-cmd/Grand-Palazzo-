@@ -11,8 +11,12 @@ import { HeroFundo } from "./interactive/HeroFundo";
  * Dobra em vídeo de tela cheia.
  *
  * A ordem das camadas, de baixo para cima: pôster, vídeo, véu de
- * legibilidade, colunata, luz alta, abertura e por fim o texto. O
- * pôster é o LCP e já vem no HTML; o vídeo entra depois, por cima.
+ * legibilidade, luz alta, abertura e por fim o texto. O pôster é o LCP
+ * e já vem no HTML; o vídeo entra depois, por cima.
+ *
+ * A colunata (as pilastras de 1px) NÃO entra aqui: sobre imagem em
+ * movimento ela vira sujeira, não textura. Ela segue nas seções de
+ * fundo chapado, que é onde tem o que fazer.
  *
  * O texto mora na base à esquerda, e o véu é diagonal no desktop: a
  * leitura fica sobre a parte escura e a represa continua aparecendo do
@@ -60,8 +64,6 @@ export function Hero() {
         aria-hidden
         className="veu-hero-desktop absolute inset-0 -z-10 hidden md:block"
       />
-      {/* a assinatura da casa por cima da cena, quase invisível */}
-      <div aria-hidden className="colunata absolute inset-0 -z-10 opacity-70" />
       <div aria-hidden className="luz-alta absolute inset-x-0 top-0 -z-10 h-1/3" />
       {/* cortina de abertura: escurece e sai */}
       <div aria-hidden className="dobra-clarear absolute inset-0 -z-10 bg-noite" />
