@@ -10,12 +10,12 @@ import { GaleriaEmbla } from "./interactive/GaleriaEmbla";
 export function Momentos() {
   const { eyebrow, titulo, texto, anterior, proxima } = home.momentos;
   return (
-    <Section theme="claro" id="momentos" className="py-20 sm:py-24">
+    <Section theme="claro" id="momentos" className="py-16 sm:py-28">
       <Container>
         <header className="flex flex-wrap items-end justify-between gap-x-12 gap-y-4">
           <div className="max-w-xl">
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.08] tracking-[-0.028em]">
+            <h2 className="mt-4 font-display text-titulo text-balance">
               {titulo.antes} <em className="italic text-cafe">{titulo.enfase}</em>
               {titulo.depois}
             </h2>

@@ -41,7 +41,7 @@ export function CtaFinal() {
         <div className="h-20" />
       </div>
 
-      <Section theme="noite" className="pb-24 sm:pb-28">
+      <Section theme="noite" className="pb-20 sm:pb-28">
         <Container className="pt-16 text-center sm:pt-20">
           <Eyebrow className="[&]:inline-block">{eyebrow}</Eyebrow>
           <h2 className="mx-auto mt-4 max-w-3xl font-display text-titulo text-balance sm:text-display">

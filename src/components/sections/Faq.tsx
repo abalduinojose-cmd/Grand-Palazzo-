@@ -9,11 +9,11 @@ import { home } from "@/content/site";
 export function Faq() {
   const { eyebrow, titulo } = home.faqSecao;
   return (
-    <Section theme="claro" id="perguntas" className="py-20 sm:py-24">
-      <Container className="grid gap-10 lg:grid-cols-[1fr_2fr]">
+    <Section theme="claro" id="perguntas" className="py-16 sm:py-28">
+      <Container className="grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-16">
         <header>
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="mt-3 font-display text-titulo">{titulo}</h2>
+          <h2 className="mt-4 font-display text-titulo">{titulo}</h2>
         </header>
 
         <div className="border-t border-(--fio)">

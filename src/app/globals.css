@@ -62,7 +62,13 @@
     sans-serif;
 
   /* Escala tipográfica fluida. Com uma grotesca só no site, o PESO e o
-     ESPACEJAMENTO viajam junto com o tamanho: título grande vai de 300
+     ESPACEJAMENTO viajam junto com o tamanho.
+
+     `--text-titulo` é O tamanho de título de seção, e toda seção usa
+     ele. Antes cada uma trazia o próprio clamp escrito à mão, e a
+     página tinha títulos de 58, 54 e 48px lado a lado sem motivo. A
+     única exceção é a chamada final, que sobe para `--text-display`
+     porque é o fecho. título grande vai de 300
      com tracking bem negativo (é o que faz peso leve em corpo grande
      ler editorial), e texto miúdo sobe de peso porque em 20px a haste
      fina começa a sumir sobre foto. Deixar isso no token evita a
@@ -71,7 +77,7 @@
   --text-display--line-height: 1;
   --text-display--letter-spacing: -0.035em;
   --text-display--font-weight: 300;
-  --text-titulo: clamp(1.75rem, 4vw, 3rem);
+  --text-titulo: clamp(2rem, 4.5vw, 3.6rem);
   --text-titulo--line-height: 1.08;
   --text-titulo--letter-spacing: -0.028em;
   --text-titulo--font-weight: 300;

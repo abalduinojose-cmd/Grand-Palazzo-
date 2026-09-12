@@ -35,17 +35,17 @@ export function PorDentro() {
   const { eyebrow, titulo } = home.porDentro;
 
   return (
-    <Section theme="offwhite" id="por-dentro" className="py-20 sm:py-28">
+    <Section theme="offwhite" id="por-dentro" className="py-16 sm:py-28">
       <Container>
         <header className="max-w-xl">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.08] tracking-[-0.028em]">
+          <h2 className="mt-4 font-display text-titulo text-balance">
             {titulo.antes} <em className="italic text-cafe">{titulo.enfase}</em>
             {titulo.depois}
           </h2>
         </header>
 
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-4 lg:grid-cols-12">
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-4 lg:grid-cols-12">
           {ambientes.map((ambiente, i) => (
             <figure
               key={ambiente.slug}

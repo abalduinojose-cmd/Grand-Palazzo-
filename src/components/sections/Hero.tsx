@@ -105,12 +105,15 @@ export function Hero() {
             Areal", coisa que a etiqueta logo acima já diz. Virou os
             três argumentos em itens curtos, separados por ponto: lê-se
             de relance, que é o que uma dobra pede. */}
-        <ul className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-sans text-[1.0625rem] text-creme [text-shadow:0_1px_18px_rgb(23_18_11/0.6)] sm:text-[1.125rem]">
-          {argumentos.map((argumento, i) => (
-            <li key={argumento} className="flex items-center gap-3">
-              {i > 0 && (
-                <span aria-hidden className="size-1 rounded-full bg-bege" />
-              )}
+        <ul className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-sans text-[1.0625rem] text-creme [text-shadow:0_1px_18px_rgb(23_18_11/0.6)] sm:text-[1.125rem]">
+          {argumentos.map((argumento) => (
+            /* O ponto vem antes de TODO item, inclusive do primeiro.
+               Com ele só entre os itens, a lista quebrava no celular e
+               a segunda linha começava com um ponto solto, parecendo
+               erro. Assim cada item carrega o seu, e a quebra fica
+               certa em qualquer largura. */
+            <li key={argumento} className="flex items-center gap-2.5">
+              <span aria-hidden className="size-1 shrink-0 rounded-full bg-bege" />
               {argumento}
             </li>
           ))}

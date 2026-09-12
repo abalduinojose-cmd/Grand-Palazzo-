@@ -54,7 +54,7 @@ function comEnfase(texto: string, destaques: string[]): ReactNode[] {
  */
 export function Manifesto() {
   return (
-    <Section theme="marrom" className="pt-24 sm:pt-32 lg:pb-32">
+    <Section theme="marrom" className="pt-20 sm:pt-32 lg:pb-32">
       <Frontao className="pointer-events-none absolute -right-10 -top-10 w-72 text-bege opacity-[0.07] sm:w-96" />
 
       {/* coluna de foto colada na borda da tela, só do desktop para cima */}

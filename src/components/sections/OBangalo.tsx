@@ -18,11 +18,11 @@ export function OBangalo() {
   const copy = home.bangalo;
 
   return (
-    <Section theme="claro" id="bangalo" className="py-20 sm:py-28">
+    <Section theme="claro" id="bangalo" className="py-16 sm:py-28">
       <Container>
         <header className="max-w-2xl">
           <Eyebrow>{copy.eyebrow}</Eyebrow>
-          <h2 className="mt-3 font-display text-balance text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.08] tracking-[-0.028em]">
+          <h2 className="mt-4 font-display text-titulo text-balance">
             {copy.titulo.antes} <em className="italic text-cafe">{copy.titulo.enfase}</em>
             {copy.titulo.depois}
           </h2>
@@ -31,7 +31,7 @@ export function OBangalo() {
           </p>
         </header>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:items-stretch lg:gap-12">
+        <div className="mt-12 grid gap-8 sm:mt-16 lg:grid-cols-[1.6fr_1fr] lg:items-stretch lg:gap-12">
           <figure className="group reveal relative min-h-[60svh] overflow-hidden rounded-3xl lg:min-h-[70svh]">
             <Foto
               foto={fotos.fachadaEspreguicadeira}

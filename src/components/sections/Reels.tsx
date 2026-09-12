@@ -20,14 +20,14 @@ export function Reels() {
   const copy = home.reels;
 
   return (
-    <Section theme="marrom" id="reels" className="py-20 sm:py-28">
+    <Section theme="marrom" id="reels" className="py-16 sm:py-28">
       <Container className="relative">
         <header className="flex flex-col items-center gap-6 text-center">
           <div className="max-w-2xl">
             <p className="font-sans text-[0.6875rem] font-extrabold uppercase tracking-[0.28em] text-creme">
               {copy.eyebrow}
             </p>
-            <h2 className="mt-5 font-display text-balance text-[clamp(2rem,4.8vw,3.4rem)] font-light leading-[1.06] tracking-[-0.028em] text-creme">
+            <h2 className="mt-4 font-display text-titulo text-balance text-creme">
               {copy.titulo.antes}{" "}
               <em className="italic text-bege">{copy.titulo.enfase}</em>
               {copy.titulo.depois}
