@@ -355,6 +355,25 @@ body {
 /* Atmosfera e movimento de carga                                    */
 /* ---------------------------------------------------------------- */
 
+/* Dado em degradê, no formato da referência que o cliente mandou: o
+   número/fato recebe uma passagem de cor em vez de tinta chapada.
+   Aqui o par é o da casa, café -> dourado envelhecido.
+
+   Só em CORPO GRANDE, e não é preciosismo: sobre creme o café mede
+   7,0:1 e o dourado 3,9:1. Em texto pequeno a ponta dourada reprovaria
+   (o mínimo é 4,5:1); dos 24px para cima vale o mínimo de 3:1 e as
+   duas pontas passam. A faixa usa 26px no celular e 42px no desktop. */
+.dado-degrade {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-cafe) 0%,
+    var(--color-dourado) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Colunata: o ritmo de pilastras de um palazzo, em linhas finíssimas.
    Serve de textura arquitetônica nos fundos escuros, no lugar de cor
    chapada. Duas camadas com passos diferentes evitam o ar de "listra". */

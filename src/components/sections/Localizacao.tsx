@@ -63,7 +63,7 @@ export function Localizacao() {
           </div>
 
           <Foto
-            foto={fotos.deckVistaCasal}
+            foto={fotos.daybedJardim}
             proporcao="4/5"
             sizes="(min-width: 1024px) 45vw, 100vw"
             className="reveal rounded-3xl"
