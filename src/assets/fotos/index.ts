@@ -124,6 +124,7 @@ export const heroFoto: Foto = fotos.heroAereo;
  * vezes na mesma página enfraquece as duas.
  */
 export const galeria: Foto[] = [
+  fotos.bicaDeBambu,
   fotos.piscinaComVista,
   fotos.piscinaDeDia,
   fotos.hidroComFrios,
@@ -135,6 +136,5 @@ export const galeria: Foto[] = [
   fotos.deckSuspenso,
   fotos.daybedJardim,
   fotos.piscinaBambuzal,
-  fotos.bicaDeBambu,
   fotos.deckANoite,
 ];

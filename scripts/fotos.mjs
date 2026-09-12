@@ -73,10 +73,10 @@ const CURADORIA = {
  * do conjunto inteiro, não de olhômetro.
  */
 const TRATAMENTO = {
-  "bica-de-bambu.jpg": {
-    recorte: { esquerda: 0.47, topo: 0, largura: 0.53, altura: 1 },
-    porque: "o braço e o relógio do hóspede ocupavam quase metade do quadro",
-  },
+  /* A bica de bambu ficou SEM recorte: eu tinha cortado o braço e o
+     relógio do hóspede, mas o cliente reenviou a foto no quadro
+     inteiro pedindo destaque para ela. A mão enchendo o copo é o
+     assunto da imagem, não um estorvo. */
   "cafe-comemorativo.jpg": {
     recorte: { esquerda: 0, topo: 0, largura: 0.62, altura: 0.82 },
     porque: "embalagem de mercado com rótulo legível no canto inferior",
