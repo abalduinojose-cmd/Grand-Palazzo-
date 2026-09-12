@@ -24,22 +24,20 @@ escondido, genérico ou apontando para o WhatsApp em vez de responder.
 - [ ] **Existe perfil com avaliações?** (Airbnb, Booking ou Google) Com
   o link eu transcrevo os depoimentos reais e ligo a seção. Sem fonte,
   ela continua fora, porque não inventamos depoimento.
-- [ ] **Vídeo do tour sem legenda, e em resolução maior.** O fundo da
-  dobra roda o tour completo, mas duas coisas ainda dependem de você:
+- [ ] **Vídeo do tour sem legenda.** Em 12/09 você mandou um arquivo
+  bem melhor (718x942 a 8,5 Mbps, contra o reel de 3 Mbps que estava
+  no site), e ele já vinha com parte da tarja cortada. Ainda restam
+  três blocos de texto queimados na imagem:
 
-  1. **4 segundos ficaram fora.** Entre 37s e 41s o reel mostra a
-     chamada "FAÇA SUA RESERVA PELO LINK DA BIOGRAFIA", escrita no meio
-     do quadro. Não há recorte que tire, e é texto de Instagram, que no
-     site não faz sentido. Esses 4 segundos foram removidos e a emenda
-     tem um dissolve, então não se percebe. Com o arquivo sem legenda,
-     entram os 47 segundos inteiros.
-  2. **Resolução.** Reel de Instagram vem em 720px de largura, e numa
-     tela grande isso é ampliado. Funciona, mas com o arquivo original
-     da filmagem (ideal: 1920x1080 ou mais) a dobra fica bem mais
-     nítida.
+  1. a faixa de baixo, que sai no recorte, sem perder cena;
+  2. **"@CHALESDAREPRESA · localizado em Petrópolis"**, entre 32,7s e
+     36,2s, no meio do quadro. Esse é o mais grave: cita outra empresa
+     e outra cidade dentro do site do Grand Palazzo;
+  3. "FAÇA SUA RESERVA PELO LINK DA BIOGRAFIA", entre 36,8s e 40,8s.
 
-  Vale pedir os dois ao cinegrafista de uma vez: o arquivo original,
-  sem legenda nem chamada.
+  Os dois do meio são contíguos, então saíram num corte só de 8,5
+  segundos, com dissolve na emenda. Sobraram 38s dos 47. Com o arquivo
+  sem nenhuma legenda, entram os 47 segundos inteiros.
 
 ## Informações do imóvel
 - [ ] Capacidade (quantos hóspedes) — hoje o FAQ manda perguntar

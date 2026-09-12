@@ -1,32 +1,30 @@
 /**
  * Vídeo de fundo da dobra, nas duas orientações.
  *
- * O material do cliente é reel de Instagram: 720x1280, 47s, com legenda
- * queimada na imagem. O cliente pediu o vídeo COMPLETO em loop, então a
- * regra aqui é tirar o mínimo possível.
+ * A fonte é `midia/videos/hero-original.mp4`, que o cliente mandou em
+ * 12/09: 718x942, 47s, HEVC a 8,5 Mbps. É bem melhor que o reel que
+ * usávamos antes (720x1280 a 3 Mbps, já recomprimido pelo Instagram),
+ * e já vem com parte da tarja de legenda cortada.
  *
- * Onde a legenda vive, medido quadro a quadro nos 47 segundos (detector
- * de pixel quase branco com vizinho escuro, que é a borda da letra):
+ * Mas ainda tem legenda queimada, em três lugares, todos localizados
+ * quadro a quadro nos 47 segundos:
  *
- *   - faixa de baixo, 78,4% a 81% da altura, presente em quase todo o
- *     vídeo. Sai no recorte, sem perder nada da cena.
- *   - bloco "FAÇA SUA RESERVA PELO LINK DA BIOGRAFIA", de 37,0s a
- *     41,1s, a 34% da altura. Esse fica no MEIO do quadro: nenhum
- *     recorte resolve, e é chamada de Instagram, que não faz sentido no
- *     site. Só sai cortando esses 4 segundos.
+ *   1. faixa de baixo, de 88,6% a 91,9% da altura, quase o vídeo todo.
+ *      Sai no recorte, sem perder cena.
+ *   2. "@CHALESDAREPRESA · localizado em Petrópolis", de ~32,7s a
+ *      ~36,2s, a 44% da altura. Esse é o pior de todos: cita OUTRA
+ *      empresa, com outra cidade, no meio do site do Grand Palazzo.
+ *   3. "FAÇA SUA RESERVA PELO LINK DA BIOGRAFIA", de ~36,8s a ~40,8s,
+ *      a 27% da altura. Chamada de Instagram, não faz sentido no site.
  *
- * Por isso o vídeo é montado em dois trechos (antes e depois do bloco)
- * emendados com dissolve de meio segundo: os dois lados são a mesma
- * tomada aérea, e um corte seco ali mostraria o drone pulando de
- * posição. Com o dissolve não se percebe. Sobram ~42,6s dos 47.
+ * Os dois blocos do meio são contíguos (sobra menos de meio segundo
+ * limpo entre eles), então saem num corte só, de 32,5s a 41,05s, com
+ * dissolve na emenda. Os dois lados são tomadas diferentes, então a
+ * passagem lê como corte de montagem. Sobram ~38s dos 47.
  *
  * Duas saídas, porque uma só não serve:
  *   - hero-desktop.mp4  faixa horizontal, ampliada com lanczos
  *   - hero-mobile.mp4   vertical no tamanho nativo, sem ampliar
- *
- * A faixa horizontal sai de y=210 e tem 468 de altura, escolhida
- * comparando três enquadramentos ao longo do vídeo inteiro. Detalhe
- * abaixo, na constante.
  *
  *   node scripts/videos.mjs
  */
@@ -38,39 +36,34 @@ import ffmpeg from "ffmpeg-static";
 import sharp from "sharp";
 
 const RAIZ = path.resolve(import.meta.dirname, "..");
-const ORIGEM = path.join(RAIZ, "midia", "videos", "tour-original.mp4");
+const ORIGEM = path.join(RAIZ, "midia", "videos", "hero-original.mp4");
 const VIDEOS = path.join(RAIZ, "public", "videos");
 const FOTOS = path.join(RAIZ, "src", "assets", "fotos");
 
-/** Bloco do "link da biografia": entra em 37,0s e sai em 41,1s. */
-const CORTE = { de: 36.9, ate: 41.2 };
+/** Os dois blocos de texto no meio do quadro, num corte só. */
+const CORTE = { de: 32.5, ate: 41.05 };
 /** Duração do original. */
-const FIM = 47.18;
+const FIM = 47.1;
 /** Dissolve da emenda, em segundos. */
 const EMENDA = 0.5;
-/* Faixa horizontal: onde recortar do quadro de 720x1280.
 
-   Subiu de y=300/h=405 para y=210/h=468 a pedido do cliente ("suba o
-   ângulo pra pegar mais o vídeo"). Comparei três enquadramentos ao
-   longo dos 42s antes de trocar: em 210 entram o ipê roxo, o telhado e
-   o vale na mesma linha, que é a melhor composição da abertura. Descer
-   mais (y=150) melhora a aérea mas nas tomadas de dentro sobra teto
-   vazio, e o tour tem várias.
+/* Altura do recorte vertical: a faixa de legenda começa em 88,6% de
+   942, ou seja y=835. Em 820 ela fica fora com folga. */
+const ALTURA_VERTICAL = 820;
 
-   O limite de baixo é a legenda queimada, que começa em 78,4% da
-   altura (y=1003): 210+468 = 678, com folga. */
-const FAIXA_Y = 210;
-const FAIXA_H = 468;
+/* Faixa horizontal: y=150, altura 460. Comparei três enquadramentos ao
+   longo do vídeo inteiro. Mais alto e as tomadas de dentro ficam com
+   teto vazio; mais baixo e a aérea de abertura perde o vale. Em
+   150/460 entram o telhado, a piscina e o vale na mesma linha, e a
+   faixa é alta o bastante para as cenas de chão não ficarem espremidas. */
+const FAIXA_Y = 150;
+const FAIXA_H = 460;
 
-/* Taxa de quadros: a original é 30, e 24 corta um quinto dos bytes sem
-   que ninguém perceba em movimento de drone. Abaixo disso trepida. */
+/* A original é 30 quadros; 24 corta um quinto dos bytes sem que
+   ninguém perceba. Compressão firme: comparando recorte a 100% de um
+   quadro com folhagem, crf 33/35 é indistinguível de crf 30, e o véu
+   por cima esconde o pouco que sobra. */
 const FPS = 24;
-
-/* Compressão firme de propósito. Num vídeo de 42s a diferença entre
-   crf 30 e crf 35 é de megabytes, e comparando recorte a 100% de um
-   quadro com folhagem os dois são indistinguíveis: a fonte já é reel
-   de Instagram em 720p, ou seja, não há detalhe fino a perder. Somado
-   ao véu por cima, sobra margem. */
 
 /**
  * Monta o filtro: dois trechos do mesmo arquivo, cada um recortado e
@@ -90,23 +83,22 @@ function filtro(tratamento) {
 const SAIDAS = [
   {
     nome: "hero-desktop.mp4",
-    /* Recorta a faixa e amplia 1,33x com lanczos. Partir de 960 em vez
-       de 720 dá ao navegador menos ampliação para fazer, e o unsharp
-       devolve o microcontraste que a ampliação come. Não vale subir
-       para 1280: num vídeo de 42s isso quase dobra o arquivo e o ganho
-       desaparece atrás do véu. */
+    /* Recorta a faixa e amplia 1,34x com lanczos: o navegador tem menos
+       ampliação para fazer, e o unsharp devolve o microcontraste que a
+       ampliação come. Não vale subir mais: num vídeo de 38s isso quase
+       dobra o arquivo e o ganho desaparece atrás do véu. */
     filtro: filtro(
-      `crop=720:${FAIXA_H}:0:${FAIXA_Y},fps=${FPS},scale=960:624:flags=lanczos,unsharp=5:5:0.5:5:5:0,setsar=1,format=yuv420p`,
+      `crop=718:${FAIXA_H}:0:${FAIXA_Y},fps=${FPS},scale=960:616:flags=lanczos,unsharp=5:5:0.5:5:5:0,setsar=1,format=yuv420p`,
     ),
     crf: 33,
   },
   {
     nome: "hero-mobile.mp4",
-    /* Vertical fica no tamanho nativo: em tela de celular o vídeo é
-       reduzido, não ampliado, então é o recorte mais nítido do site.
-       928 de altura é 72,5% do quadro, o que deixa a faixa de legenda
-       de baixo (78,4%) fora. */
-    filtro: filtro(`crop=720:928:0:0,fps=${FPS},setsar=1,format=yuv420p`),
+    /* Vertical no tamanho nativo: em tela de celular o vídeo é
+       reduzido, não ampliado, então é o recorte mais nítido do site. */
+    filtro: filtro(
+      `crop=718:${ALTURA_VERTICAL}:0:0,fps=${FPS},setsar=1,format=yuv420p`,
+    ),
     crf: 35,
   },
 ];
@@ -174,7 +166,7 @@ const p = spawnSync(
   [
     "-hide_banner", "-loglevel", "error",
     "-ss", "0", "-i", ORIGEM,
-    "-vf", "crop=720:928:0:0",
+    "-vf", `crop=718:${ALTURA_VERTICAL}:0:0`,
     "-frames:v", "1",
     bruto, "-y",
   ],
@@ -184,7 +176,7 @@ if (p.status !== 0) process.exit(p.status ?? 1);
 
 const poster = path.join(FOTOS, "hero-aereo.jpg");
 const { size } = await sharp(bruto)
-  .resize(1080, 1392, { kernel: "lanczos3" })
+  .resize(1077, 1230, { kernel: "lanczos3" })
   .sharpen({ sigma: 0.7, m1: 0.4, m2: 0.6 })
   .jpeg({ quality: 72, mozjpeg: true })
   .toFile(poster);

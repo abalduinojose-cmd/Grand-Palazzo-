@@ -154,9 +154,11 @@ export const heroFoto: Foto = fotos.heroAereo;
  * trilho é arrastável e as três primeiras são as que quase todo mundo
  * vê.
  *
- * A fachada com espreguiçadeira ficou de fora daqui de propósito: ela é
- * a carta grande da seção do bangalô, e repetir a mesma imagem duas
- * vezes na mesma página enfraquece as duas.
+ * Ficam de fora daqui, de propósito, as fotos que já aparecem grandes
+ * em outra seção: a fachada com espreguiçadeira (carta do bangalô), a
+ * lareira com vinho (ambiente "Lareira acesa") e o jardim à noite (a
+ * placa do anoitecer, antes do CTA). Repetir a mesma imagem duas vezes
+ * na mesma página enfraquece as duas.
  */
 export const galeria: Foto[] = [
   fotos.bicaDeBambu,
@@ -165,7 +167,6 @@ export const galeria: Foto[] = [
   fotos.piscinaComVista,
   fotos.hidroComFrios,
   fotos.salaComLareira,
-  fotos.lareiraComVinho,
   fotos.camaRomantica,
   fotos.cafeNoJardim,
   fotos.deckSuspenso,
@@ -174,5 +175,4 @@ export const galeria: Foto[] = [
   fotos.mesaAoAnoitecer,
   fotos.escadaANoite,
   fotos.arvoreIluminada,
-  fotos.jardimANoite,
 ];

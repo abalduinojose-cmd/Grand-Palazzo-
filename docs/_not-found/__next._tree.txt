@@ -1,2 +1,2 @@
-:HL["/Grand-Palazzo-/_next/static/chunks/2d0fvgvcwvsea.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"msN8VJlwq8fWQDDaEpIBE"}
+:HL["/Grand-Palazzo-/_next/static/chunks/0xro3a5wiu8d3.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"vhOAC9-pp7Qafju38Fd3G"}

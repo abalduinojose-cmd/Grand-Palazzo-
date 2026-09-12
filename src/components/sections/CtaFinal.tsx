@@ -26,17 +26,19 @@ export function CtaFinal() {
         <p className="relative z-[2] mx-auto max-w-2xl px-5 pt-28 text-center font-display text-entre text-creme [text-shadow:0_1px_16px_rgb(0_0_0/0.45)] sm:pt-36">
           {linhaNoite}
         </p>
-        {/* A foto que a frase acima descreve, de borda a borda. O
-            espaço aqui era um vão de 96px, e o anoitecer pedia imagem,
-            não ar. A base dissolve no marrom escuro da seção seguinte,
-            então a passagem para o CTA não tem emenda. */}
-        <div className="reveal relative mt-14">
-          <Foto foto={fotos.jardimANoite} proporcao="16/9" sizes="100vw" />
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-noite to-transparent"
+        {/* A foto que a frase acima descreve, no formato do arquivo e
+            não recortada em 16/9: em retrato ela fica alta, e é essa
+            altura que dá o destaque pedido. Centrada e com largura
+            limitada, senão numa tela larga viraria uma placa de dois
+            mil pixels de altura. */}
+        <div className="reveal relative mx-auto mt-14 max-w-2xl px-5 sm:px-8">
+          <Foto
+            foto={fotos.jardimANoite}
+            sizes="(min-width: 672px) 42rem, 100vw"
+            className="overflow-hidden rounded-3xl"
           />
         </div>
+        <div className="h-20" />
       </div>
 
       <Section theme="noite" className="pb-24 sm:pb-28">
