@@ -130,6 +130,8 @@ export const homeSchema = z.object({
     pausar: z.string().min(1),
     somAtivar: z.string().min(1),
     somDesativar: z.string().min(1),
+    /** Prefixo do marcador do trilho: vira "Ir para o video 2". */
+    irPara: z.string().min(1),
     videos: z
       .array(
         z.object({
@@ -167,7 +169,6 @@ export const homeSchema = z.object({
       instagram: z.string().min(1),
       whatsapp: z.string().min(1),
     }),
-    mapaLink: z.string().min(1),
   }),
   whatsapp: z.object({
     mensagem: z.string().min(1),
@@ -241,6 +242,7 @@ export const home: Home = homeSchema.parse({
     pausar: "Pausar o vídeo",
     somAtivar: "Ativar o som do vídeo",
     somDesativar: "Silenciar o vídeo",
+    irPara: "Ir para o vídeo",
     videos: [
       {
         src: "/videos/reel-tour.mp4",
@@ -292,7 +294,6 @@ export const home: Home = homeSchema.parse({
       instagram: "Instagram do Grand Palazzo",
       whatsapp: "Conversar no WhatsApp",
     },
-    mapaLink: "Abrir no Google Maps",
   },
   whatsapp: {
     mensagem:

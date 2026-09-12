@@ -1,22 +1,18 @@
-import { fotos } from "@/assets/fotos";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { Foto } from "@/components/ui/Foto";
-import { Frontao } from "@/components/ui/Frontao";
 import { Section } from "@/components/ui/Section";
 import { home, site } from "@/content/site";
 import { whatsappUrl } from "@/lib/utils";
 
 /**
  * O fim do scroll é a noite: o creme desce em gradiente até o marrom
- * escuro, o frontão da marca fecha a transição e a decisão acontece
- * diante da hidromassagem posta.
+ * escuro e a decisão acontece sem concorrência.
  *
- * A foto aqui era a do deck à noite, que é a mais escura do acervo e
- * some no fundo escuro da seção. Esta tem a luz da própria hidro, a
- * tábua de frios e o vinho, ou seja, mostra a experiência que o botão
- * ao lado está vendendo.
+ * Saíram a foto ao lado e o frontão da transição: no fecho a página já
+ * mostrou tudo que tinha para mostrar, e mais uma imagem só divide a
+ * atenção com o botão. O bloco ficou centrado e curto, que é o formato
+ * que uma última chamada pede.
  */
 export function CtaFinal() {
   const { eyebrow, titulo, texto, linhaNoite, whatsappRotulo, instagramRotulo } =
@@ -28,51 +24,39 @@ export function CtaFinal() {
         <p className="relative z-[2] mx-auto max-w-2xl px-5 pt-28 text-center font-display text-entre text-creme [text-shadow:0_1px_16px_rgb(0_0_0/0.45)] sm:pt-36">
           {linhaNoite}
         </p>
-        <Frontao className="relative z-[2] mx-auto mt-10 w-24 text-creme/80 sm:w-32" />
-        <div className="h-16" />
+        <div className="h-24" />
       </div>
 
       <Section theme="noite" className="pb-24 sm:pb-28">
-        <Container className="pt-16 sm:pt-20">
-          <div className="grid items-center gap-12 lg:grid-cols-[6fr_5fr] lg:gap-16">
-            <div>
-              <Eyebrow>{eyebrow}</Eyebrow>
-              <h2 className="mt-4 font-display text-titulo text-balance sm:text-display">
-                {titulo.antes} {titulo.enfase}
-                {titulo.depois}
-              </h2>
-              <p className="mt-5 max-w-xl font-sans text-corpo text-(--fg-suave)">
-                {texto}
-              </p>
+        <Container className="pt-16 text-center sm:pt-20">
+          <Eyebrow className="[&]:inline-block">{eyebrow}</Eyebrow>
+          <h2 className="mx-auto mt-4 max-w-3xl font-display text-titulo text-balance sm:text-display">
+            {titulo.antes} {titulo.enfase}
+            {titulo.depois}
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl font-sans text-corpo text-(--fg-suave)">
+            {texto}
+          </p>
 
-              <div className="mt-10 flex flex-wrap gap-3">
-                <Button
-                  href={whatsappUrl(site.whatsapp, home.whatsapp.mensagem)}
-                  target="_blank"
-                  rel="noopener"
-                  variante="sobre-marrom"
-                  className="px-7 py-3.5"
-                >
-                  {whatsappRotulo}
-                </Button>
-                <Button
-                  href={site.instagram.url}
-                  target="_blank"
-                  rel="noopener"
-                  variante="vidro"
-                  className="px-7 py-3.5"
-                >
-                  {instagramRotulo}
-                </Button>
-              </div>
-            </div>
-
-            <Foto
-              foto={fotos.hidroComFrios}
-              proporcao="3/2"
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="reveal rounded-3xl"
-            />
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <Button
+              href={whatsappUrl(site.whatsapp, home.whatsapp.mensagem)}
+              target="_blank"
+              rel="noopener"
+              variante="sobre-marrom"
+              className="px-7 py-3.5"
+            >
+              {whatsappRotulo}
+            </Button>
+            <Button
+              href={site.instagram.url}
+              target="_blank"
+              rel="noopener"
+              variante="vidro"
+              className="px-7 py-3.5"
+            >
+              {instagramRotulo}
+            </Button>
           </div>
         </Container>
       </Section>

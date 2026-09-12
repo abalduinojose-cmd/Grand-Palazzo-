@@ -2,24 +2,15 @@ import { Container } from "@/components/ui/Container";
 import { IconeMarca } from "@/components/ui/IconeMarca";
 import { Section } from "@/components/ui/Section";
 import { home, site } from "@/content/site";
-import { cx } from "@/lib/utils";
-import { VideoReel } from "./interactive/VideoReel";
+import { ReelsEmbla } from "./interactive/ReelsEmbla";
 
 /**
- * O perfil do cliente dentro do site.
+ * O perfil do cliente dentro do site: os três reels lado a lado num
+ * trilho que se arrasta, com marcadores embaixo no lugar da barra de
+ * rolagem nativa (o porquê está no ReelsEmbla).
  *
- * Sem trilho e sem arrastar: os três vídeos cabem na tela. O trilho
- * horizontal deixava uma barra de rolagem embaixo dos cartões no
- * desktop e escondia parte do conteúdo atrás de um gesto, o que é
- * cobrar um esforço para ver três vídeos que cabem à vista.
- *
- * No celular a grade é 2x2 com o primeiro em largura cheia: assim o
- * mais forte abre grande e os outros dois entram lado a lado, sem
- * empilhar três vídeos de tela inteira um embaixo do outro. No desktop
- * são três colunas iguais.
- *
- * Cada cartão leva número e legenda curta embaixo, o que dá a leitura
- * de índice de conteúdo, não de grade de imagens.
+ * Cada cartão leva número e legenda curta embaixo, o que dá leitura de
+ * índice de conteúdo, não de grade de imagens.
  */
 export function Reels() {
   const copy = home.reels;
@@ -49,7 +40,7 @@ export function Reels() {
             href={site.instagram.url}
             target="_blank"
             rel="noopener"
-            className="group inline-flex items-center gap-3 self-start rounded-full border border-creme/25 px-5 py-3 transition-colors duration-300 ease-suave hover:border-bege lg:self-auto"
+            className="group inline-flex items-center gap-3 justify-self-start self-start rounded-full border border-creme/25 px-5 py-3 transition-colors duration-300 ease-suave hover:border-bege lg:self-auto"
           >
             <IconeMarca
               marca="instagram"
@@ -61,49 +52,17 @@ export function Reels() {
           </a>
         </header>
 
-        <ul className="mt-12 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-4 lg:grid-cols-3 lg:gap-6">
-          {copy.videos.map((video, i) => (
-            <li
-              key={video.src}
-              className={cx(i === 0 && "col-span-2 lg:col-span-1")}
-            >
-              <div className="overflow-hidden rounded-[1.5rem] ring-1 ring-creme/15 sm:rounded-[1.75rem]">
-                <VideoReelDoTrilho video={video} copy={copy} />
-              </div>
-              <p className="mt-3 flex items-baseline gap-3 sm:mt-4">
-                <span className="font-sans text-[0.625rem] font-extrabold tracking-[0.24em] text-bege tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="font-sans text-legenda text-creme/70">
-                  {video.titulo}
-                </span>
-              </p>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-12 sm:mt-16">
+          <ReelsEmbla
+            videos={copy.videos}
+            reproduzir={copy.reproduzir}
+            pausar={copy.pausar}
+            somAtivar={copy.somAtivar}
+            somDesativar={copy.somDesativar}
+            irPara={copy.irPara}
+          />
+        </div>
       </Container>
     </Section>
   );
 }
-
-/* Extraído só para a lista acima não virar um bloco de dez props. */
-function VideoReelDoTrilho({
-  video,
-  copy,
-}: {
-  video: (typeof home.reels.videos)[number];
-  copy: typeof home.reels;
-}) {
-  return (
-    <VideoReel
-      src={video.src}
-      poster={video.poster}
-      rotulo={video.rotulo}
-      reproduzir={copy.reproduzir}
-      pausar={copy.pausar}
-      somAtivar={copy.somAtivar}
-      somDesativar={copy.somDesativar}
-    />
-  );
-}
-

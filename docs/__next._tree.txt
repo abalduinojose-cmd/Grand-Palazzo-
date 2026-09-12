@@ -1,6 +1,6 @@
-:HL["/Grand-Palazzo-/_next/static/chunks/37h_l4jf0zxrd.css","style"]
+:HL["/Grand-Palazzo-/_next/static/chunks/1vmhacvw-eynr.css","style"]
 :HL["/Grand-Palazzo-/_next/static/media/0d4f81138b703b58-s.p.3-s8-8wlgr10e.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Grand-Palazzo-/_next/static/media/3a11180d498b75c0-s.p.2028s2bhlck6k.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Grand-Palazzo-/_next/static/media/d49b8d259879faf9-s.p.0_-ee63ew1h9t.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Grand-Palazzo-/_next/static/media/f3078aa8a633a190-s.p.1ysk3bt5b699p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"TzWZ_zHyglJU6gvSPhsEk"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"zzzO6m_BGnCtP2ijODo4o"}
