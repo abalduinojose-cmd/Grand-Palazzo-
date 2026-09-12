@@ -10,7 +10,8 @@ escondido, genérico ou apontando para o WhatsApp em vez de responder.
 - [x] Instagram @grandpalazzo_
 - [x] Logo oficial, recortado do fundo branco e em três versões
 - [x] Paleta oficial de 6 cores, aplicada com contraste verificado
-- [x] 17 fotos tratadas e 3 vídeos comprimidos
+- [x] 24 fotos tratadas e 3 vídeos comprimidos (17 do primeiro lote e 7
+  do lote de 12/09, incluindo a aérea e as três noturnas)
 - [x] "20 min do centro de Areal" (dito pelo cliente no próprio reel)
 - [x] Vídeo de fundo da dobra, nas duas orientações, com o tour completo
   (42s dos 47s do reel, ver observação abaixo)
@@ -65,12 +66,15 @@ escondido, genérico ou apontando para o WhatsApp em vez de responder.
 ## Fotos e direitos
 - [ ] **Fotos da cozinha gourmet e do banheiro de mármore.** Os dois
   ambientes aparecem no reel e são fortes, mas só existem em frame de
-  vídeo (720px), resolução baixa para o site.
+  vídeo (720px), resolução baixa para o site. São os dois últimos
+  ambientes sem foto própria.
 - [ ] **Autorização de imagem.** Várias fotos têm hóspedes
   identificáveis, algumas de banho. Para uso comercial no site é
   preciso autorização de cada pessoa. Enquanto não houver, vale trocar
   por fotos sem gente ou com a pessoa de costas.
-- [ ] Crédito do perfil @kasanntoss, dono de 5 das fotos usadas
+- [ ] Crédito dos perfis de hóspedes: **@kasanntoss** (5 fotos),
+  **@celle_avellar** (a piscina com os cactos) e **@diego.victoor** (a
+  fachada de dia). Se algum deles não autorizar, essas saem do site.
 - [ ] Fotos em resolução original, se existirem (as atuais vieram de
   posts do Instagram, já recompactadas)
 
