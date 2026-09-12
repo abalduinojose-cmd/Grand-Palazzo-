@@ -87,7 +87,10 @@ export const homeSchema = z.object({
   }),
   hero: z.object({
     titulo: tituloComEnfaseSchema,
-    microlinha: z.string().min(1),
+    /* Os três argumentos da dobra, em itens curtos. Era uma frase
+       corrida que repetia "na represa de Areal", que a etiqueta logo
+       acima já diz. */
+    argumentos: z.array(z.string().min(1).max(24)).min(2).max(4),
     cta: z.string().min(1),
     ctaSecundario: z.string().min(1),
   }),
@@ -196,7 +199,7 @@ export const home: Home = homeSchema.parse({
       enfase: "para vocês dois",
       depois: "",
     },
-    microlinha: "Piscina privativa, hidromassagem e lareira na represa de Areal",
+    argumentos: ["Piscina privativa", "Hidromassagem", "Lareira acesa"],
     cta: "Reservar pelo WhatsApp",
     ctaSecundario: "Ver o bangalô",
   },

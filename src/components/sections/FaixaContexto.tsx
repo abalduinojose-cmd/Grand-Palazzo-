@@ -5,10 +5,15 @@ import { home } from "@/content/site";
 /**
  * Faixa de contexto: quatro fatos, centrados, sem nada em volta.
  *
- * No formato da referência que o cliente mandou: o dado grande em
- * cima com uma passagem de cor (café -> dourado, ver .dado-degrade no
- * globals.css), a frase curta e miúda embaixo, e só o ar separando uma
- * coluna da outra. Saíram, em rodadas anteriores, o pictograma de
+ * No formato da referência que o cliente mandou: o dado grande e em
+ * NEGRITO, com uma passagem de cor (café -> dourado, ver .dado-degrade
+ * no globals.css), a frase curta e miúda embaixo, e só o ar separando
+ * uma coluna da outra.
+ *
+ * O peso 700 aqui é a exceção do site, que é todo de peso leve. Foi
+ * pedido, e funciona: quatro dados soltos no meio da página precisam
+ * de massa para segurar a seção, e o degradê pede corpo cheio para
+ * aparecer (em haste fina a passagem de cor some). Saíram, em rodadas anteriores, o pictograma de
  * traço e depois a numeração e os fios da grade. O que sobrou é o que
  * a seção sempre foi, quatro fatos, e agora nada mais compete com eles.
  *
@@ -40,7 +45,7 @@ export function FaixaContexto() {
               className="reveal text-center"
             >
               <dt className="sr-only">{item.resto}</dt>
-              <dd className="dado-degrade font-display text-[clamp(1.625rem,5.4vw,2.625rem)] font-light leading-[1.05] tracking-[-0.032em]">
+              <dd className="dado-degrade font-display text-[clamp(1.625rem,5.4vw,2.625rem)] font-bold leading-[1.05] tracking-[-0.032em]">
                 {item.destaque}
               </dd>
               <dd className="mx-auto mt-3 max-w-[22ch] font-sans text-legenda text-(--fg-suave)">

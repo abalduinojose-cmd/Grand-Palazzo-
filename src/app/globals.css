@@ -187,9 +187,10 @@ body {
    sobre céu e água claros, ou seja, some. O rótulo resolve o dele
    sozinho, na pastilha; o resto depende desta base.
 
-   Pior caso conferido nos 42s do loop, no celular: rótulo 11,1:1,
-   título 3,8:1 e microlinha 9,3:1. O mínimo é 4,5:1 em texto pequeno
-   e 3:1 no título, que aqui tem 48px.
+   Pior caso conferido nos 42s do loop, no celular: rótulo 10,9:1,
+   título 4,3:1 e argumentos 10,8:1. O mínimo é 4,5:1 em texto pequeno
+   e 3:1 no título, que aqui tem 48px. A conta ignora a sombra de texto
+   do título, então o resultado real é melhor que o medido.
 
    A sombra é o marrom da casa puxado para o breu, nunca cinza puro. */
 .veu-dobra {

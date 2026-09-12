@@ -28,7 +28,7 @@ import { HeroFundo } from "./interactive/HeroFundo";
  * enquanto a dobra sai de cena. Nada de microanimação espalhada.
  */
 export function Hero() {
-  const { titulo, microlinha, cta, ctaSecundario } = home.hero;
+  const { titulo, argumentos, cta, ctaSecundario } = home.hero;
 
   return (
     <Section
@@ -86,26 +86,35 @@ export function Hero() {
             dobra ao resto do site e dá dois registros numa frase só.
 
             O destaque NÃO é por cor de acento: bege sobre esta cena foi
-            medido em 1,0:1, ou seja, some. Aqui o contraste é de brilho
-            dentro do mesmo creme, a primeira metade a 75% e a segunda
-            cheia, mais o itálico. Passa e continua sendo destaque.
+            medido em 1,0:1, ou seja, some. Fica o itálico, e as duas
+            metades vão em creme cheio, com uma sombra larga e suave
+            atrás. A sombra é o que dá o destaque pedido: ela separa a
+            letra da folhagem sem colocar caixa nenhuma por cima da
+            cena, que é o que o cliente não quer mais ver.
 
             Peso 400, e não o 300 das seções claras: sobre folhagem em
             movimento a haste fina se desfaz, e isso a medição de
             contraste não pega, porque ela mede cor e não espessura. */}
-        <h1 className="mt-7 max-w-[19ch] font-display text-[clamp(3rem,6.8vw,5.5rem)] font-normal leading-[0.98] tracking-[-0.04em] text-balance text-creme/80">
+        <h1 className="mt-7 max-w-[19ch] font-display text-[clamp(3rem,6.8vw,5.5rem)] font-normal leading-[0.98] tracking-[-0.04em] text-balance text-creme [text-shadow:0_2px_28px_rgb(23_18_11/0.55)]">
           {titulo.antes}{" "}
-          <em className="italic text-creme">{titulo.enfase}</em>
+          <em className="italic">{titulo.enfase}</em>
           {titulo.depois}
         </h1>
 
-        {/* A microlinha era 17px em peso leve e sumia. Subiu de corpo e
-            de peso, e ganhou um fio na frente: vira uma linha de
-            legenda, com começo marcado, em vez de frase solta. */}
-        <p className="mt-7 flex max-w-lg items-start gap-4 font-sans text-[1.125rem] leading-snug text-creme/90">
-          <span aria-hidden className="mt-3.5 h-px w-8 shrink-0 bg-bege" />
-          {microlinha}
-        </p>
+        {/* Era uma frase corrida que ainda repetia "na represa de
+            Areal", coisa que a etiqueta logo acima já diz. Virou os
+            três argumentos em itens curtos, separados por ponto: lê-se
+            de relance, que é o que uma dobra pede. */}
+        <ul className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-sans text-[1.0625rem] text-creme [text-shadow:0_1px_18px_rgb(23_18_11/0.6)] sm:text-[1.125rem]">
+          {argumentos.map((argumento, i) => (
+            <li key={argumento} className="flex items-center gap-3">
+              {i > 0 && (
+                <span aria-hidden className="size-1 rounded-full bg-bege" />
+              )}
+              {argumento}
+            </li>
+          ))}
+        </ul>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
           <Button
