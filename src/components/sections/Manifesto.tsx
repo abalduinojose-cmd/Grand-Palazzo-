@@ -47,10 +47,10 @@ function comEnfase(texto: string, destaques: string[]): ReactNode[] {
  * no desktop; agora entra uma faixa de foto de borda a borda embaixo
  * do texto.
  *
- * A foto é a escada de pedra, escolhida pelo cliente. Ela também cai
- * bem no argumento do texto ao lado: o manifesto fala de um terreno
- * que desce até a água, e a escada subindo até a casa é justamente o
- * declive à vista.
+ * A foto é a aérea, escolhida pelo cliente. É a única imagem do
+ * acervo que mostra a planta inteira do bangalô numa tomada só, e ela
+ * prova literalmente o que o texto ao lado afirma: um terreno que
+ * desce até a água, com a piscina de um lado e a escada descendo.
  */
 export function Manifesto() {
   return (
@@ -59,7 +59,7 @@ export function Manifesto() {
 
       {/* coluna de foto colada na borda da tela, só do desktop para cima */}
       <div className="absolute inset-y-0 right-0 hidden w-[38%] max-w-[32rem] lg:block">
-        <Foto foto={fotos.escadaDePedra} preencher sizes="38vw" />
+        <Foto foto={fotos.aereaDoBangalo} preencher sizes="38vw" />
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-r from-marrom via-marrom/45 to-marrom/5"
@@ -81,7 +81,7 @@ export function Manifesto() {
 
       {/* no celular a foto vem de borda a borda, fechando a seção */}
       <div className="reveal relative mt-14 lg:hidden">
-        <Foto foto={fotos.escadaDePedra} proporcao="16/9" sizes="100vw" />
+        <Foto foto={fotos.aereaDoBangalo} proporcao="16/9" sizes="100vw" />
         <div
           aria-hidden="true"
           className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-marrom to-transparent"

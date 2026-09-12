@@ -57,6 +57,20 @@ const CURADORIA = {
   [KS("3879800502351913801")]: "piscina-bambuzal.jpg",
   [KS("3879800502351936818")]: "fachada-frontal.jpg",
   [KS("3879800502410648409")]: "deck-a-noite.jpg",
+
+  /* Lote de 12/09. A aérea é a única imagem do acervo que mostra a
+     planta inteira do bangalô; as três noturnas são de longe as
+     melhores fotos de noite que existem aqui. Ficou de fora um retrato
+     desfocado de hóspede (o da aliança), que não tem uso no site. */
+  [GP("1770056838", "3823836159563196379")]: "aerea-do-bangalo.jpg",
+  [GP("1771363936", "3834801085651762897")]: "escada-a-noite.jpg",
+  [GP("1772398800", "3841815877763621477")]: "mesa-ao-anoitecer.jpg",
+  [GP("1779486602", "3902790334078171704")]: "arvore-iluminada.jpg",
+  [GP("1779486602", "3902790334380173972")]: "jardim-a-noite.jpg",
+  "diego.victoor_1775326618_3868041727634615289_1438084968.jpg":
+    "fachada-de-dia.jpg",
+  "celle_avellar_1778764697_3896882321990028524_221769117.jpg":
+    "piscina-com-cactos.jpg",
 };
 
 /**
