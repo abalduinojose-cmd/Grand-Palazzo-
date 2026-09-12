@@ -1,14 +1,19 @@
 import type { CSSProperties } from "react";
 import { Container } from "@/components/ui/Container";
+import { Pictograma } from "@/components/ui/Pictograma";
 import { home } from "@/content/site";
 
 /**
  * Faixa de contexto: quatro fatos, centrados, sem nada em volta.
  *
- * Cada célula abre com um emoji, no vocabulário que o próprio cliente
- * usa na bio do Instagram (🛖 e 📍). Ele entra como decoração pura,
- * marcado aria-hidden: quem lê por leitor de tela recebe a frase do
- * <dt>, que já descreve o item.
+ * Cada célula abre com o pictograma autoral do item, em dourado e com
+ * o traço se desenhando na entrada. Ele é decoração pura, marcado
+ * aria-hidden: quem lê por leitor de tela recebe a frase do <dt>, que
+ * já descreve o item.
+ *
+ * Emoji foi testado aqui e saiu: o desenho muda de máquina para
+ * máquina (o da bio do cliente nem existe na fonte do Windows 10) e
+ * entrega o site como template. Desenho próprio não tem esse problema.
  *
  * No formato da referência que o cliente mandou: o dado grande e em
  * NEGRITO, com uma passagem de cor (café -> dourado, ver .dado-degrade
@@ -49,12 +54,14 @@ export function FaixaContexto() {
               style={{ "--reveal-atraso": `${i * 5}%` } as CSSProperties}
               className="reveal text-center"
             >
-              {/* O emoji fica FORA do elemento com degradê: o
-                  background-clip: text recortaria ele junto e o
-                  desenho sairia lavado. */}
-              <p aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
-                {item.emoji}
-              </p>
+              {/* Pictograma autoral, com o traço se desenhando quando
+                  a célula entra em cena. Fica FORA do elemento com
+                  degradê: o background-clip: text recortaria o desenho
+                  junto e ele sairia lavado. */}
+              <Pictograma
+                nome={item.pictograma}
+                className="traco-anima mx-auto size-9 text-dourado sm:size-10"
+              />
 
               <dt className="sr-only">{item.resto}</dt>
               <dd className="dado-degrade mt-4 font-display text-[clamp(1.625rem,5.4vw,2.625rem)] font-bold leading-[1.05] tracking-[-0.032em]">

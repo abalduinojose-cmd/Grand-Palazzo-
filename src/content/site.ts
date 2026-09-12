@@ -99,14 +99,12 @@ export const homeSchema = z.object({
       z.object({
         destaque: z.string().min(1),
         resto: z.string().min(1),
-        /* Emoji do item, no vocabulário do próprio cliente, que usa
-           emoji na bio do Instagram.
-
-           Cuidado ao trocar: emoji novo não existe em máquina antiga e
-           vira quadradinho. O 🛖 da bio dele, por exemplo, é de 2020 e
-           não está na fonte do Windows 10, então virou 🏡 aqui. Na
-           dúvida, ficar nos emoji antigos e universais. */
-        emoji: z.string().min(1).max(4),
+        /* Pictograma do item. São desenhos autorais (Pictograma.tsx),
+           feitos para estes quatro fatos e para mais nada. Emoji foi
+           testado aqui e saiu: além de entregar o site como template,
+           o desenho muda de máquina para máquina, e o 🛖 da bio do
+           cliente nem existe na fonte do Windows 10. */
+        pictograma: z.enum(["estrada", "piscina", "hidro", "bangalo"]),
       }),
     )
     .length(4),
@@ -218,10 +216,10 @@ export const home: Home = homeSchema.parse({
     ctaSecundario: "Ver o bangalô",
   },
   faixa: [
-    { destaque: "Só de vocês", resto: "o bangalô inteiro, sem dividir", emoji: "🏡" },
-    { destaque: "Piscina", resto: "privativa, de frente para a mata", emoji: "💧" },
-    { destaque: "Hidro", resto: "para o fim da tarde", emoji: "♨️" },
-    { destaque: "20 min", resto: "do centro de Areal", emoji: "📍" },
+    { destaque: "Só de vocês", resto: "o bangalô inteiro, sem dividir", pictograma: "bangalo" },
+    { destaque: "Piscina", resto: "privativa, de frente para a mata", pictograma: "piscina" },
+    { destaque: "Hidro", resto: "para o fim da tarde", pictograma: "hidro" },
+    { destaque: "20 min", resto: "do centro de Areal", pictograma: "estrada" },
   ],
   manifesto: {
     eyebrow: "O refúgio",
